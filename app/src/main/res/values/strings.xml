@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">WorkoutTracker</string>
+
+    <!--FragmentNavigation-->
+    <string name="back_button_press">Press again the back button for exit</string>
+
+    <!--Login-->
+    <string name="login_editText_email">Enter email…</string>
+    <string name="login_editText_password">Enter password…</string>
+    <string name="login_button">Login</string>
+
+    <!--Error messages-->
+    <string name="check_email_and_password">Check your email and password</string>
+    <string name="login_successful">Login successful</string>
+</resources>

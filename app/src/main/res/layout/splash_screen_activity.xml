@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/splashScreen_linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageview_splash_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp40"
+        android:layout_marginTop="@dimen/dp40"
+        android:layout_marginEnd="@dimen/dp40"
+        android:src="@drawable/weightlifting" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="cursive"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textSize="@dimen/sp50"
+        android:textStyle="bold" />
+
+</LinearLayout>
