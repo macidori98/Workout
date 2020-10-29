@@ -21,7 +21,7 @@ import java.util.Random;
 public class FirebaseDb {
     private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
     public static DatabaseReference databaseReference;
-    private static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private static final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private static FirebaseUser firebaseUser;
     private static FirebaseDb databaseInstance;
 
@@ -59,14 +59,13 @@ public class FirebaseDb {
         });
     }
 
-    //TODO ne legyen ugyan az a username
     private void insertUser(String email, String username, ISignUpPresenter signUpPresenter) {
         databaseReference = database.getReference(GlobalValues.USERS);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.hasChild(username)) {
-                    String usernameNew = username.concat(String.valueOf(new Random().nextInt(100)));
+                    String usernameNew = username.concat(String.valueOf(new Random().nextInt(GlobalValues.MAX_RANDOM_VALUE)));
                     insert(new User(email, usernameNew), signUpPresenter);
                 } else {
                     insert(new User(email, username), signUpPresenter);
