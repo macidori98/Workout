@@ -1,5 +1,7 @@
 package com.example.workout.utils;
 
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 
 import androidx.core.content.ContextCompat;
@@ -11,5 +13,13 @@ public class Util {
         Snackbar snackbar = Snackbar.make(view, textId, length);
         snackbar.getView().setBackgroundColor(ContextCompat.getColor(view.getContext(), backgroundColorId));
         snackbar.show();
+    }
+
+    public static boolean isValidEmail(String target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
+    public static boolean isValidPassword(String target) {
+        return (!TextUtils.isEmpty(target) && (target.length() >= 6));
     }
 }

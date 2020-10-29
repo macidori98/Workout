@@ -11,5 +11,6 @@
     <color name="white">#FFFFFFFF</color>
 
     <!--My colors-->
-    <color name="background">#141C12</color>
+    <color name="background">#191726</color>
+    <color name="colorText">#A5A6A1</color>
 </resources>

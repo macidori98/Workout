@@ -8,18 +8,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.workout.activities.MainActivity;
 import com.example.workout.R;
+import com.example.workout.activities.MainActivity;
 
 public class FragmentNavigation extends Fragment {
     public final static String TAG = FragmentNavigation.class.getSimpleName();
-
+    private static final Handler handler = new Handler();
     private static int iMainActivityFragmentContainer;
     private static boolean bDoubleBackToExitPressedOnce = false;
     private static FragmentNavigation fragmentNavigationInstance;
     private static FragmentManager fragmentManager;
     private static FragmentTransaction fragmentTransaction;
-    private static final Handler handler = new Handler();
 
     public static FragmentNavigation getInstance(Context context) {
         if (fragmentNavigationInstance == null) {
