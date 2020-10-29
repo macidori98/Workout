@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.workout.R;
+import com.example.workout.util.GlobalValues;
 
 public class WorkoutTrackerSplashScreenActivity extends AppCompatActivity {
     public static final String TAG = WorkoutTrackerSplashScreenActivity.class.getSimpleName();
@@ -32,7 +33,7 @@ public class WorkoutTrackerSplashScreenActivity extends AppCompatActivity {
         linearLayout = findViewById(R.id.splashScreen_linearLayout);
 
         fromBottom = AnimationUtils.loadAnimation(this, R.anim.splash_screen_animation);
-        fromBottom.setDuration(1500);
+        fromBottom.setDuration(GlobalValues.SPLASHSCREEN_LENGTH);
 
         fromBottom.setAnimationListener(new Animation.AnimationListener() {
             @Override

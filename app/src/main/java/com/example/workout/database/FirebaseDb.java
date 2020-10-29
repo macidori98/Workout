@@ -19,11 +19,10 @@ import java.util.Objects;
 import java.util.Random;
 
 public class FirebaseDb {
-    public static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    public static FirebaseUser firebaseUser;
     private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
     public static DatabaseReference databaseReference;
-
+    private static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private static FirebaseUser firebaseUser;
     private static FirebaseDb databaseInstance;
 
     public static FirebaseDb getInstance() {
@@ -32,6 +31,11 @@ public class FirebaseDb {
         }
 
         return databaseInstance;
+    }
+
+    public FirebaseUser getFirebaseUser() {
+        firebaseUser = firebaseAuth.getCurrentUser();
+        return firebaseUser;
     }
 
     public void login(String email, String password, ILoginPresenter loginPresenter) {
@@ -61,7 +65,7 @@ public class FirebaseDb {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild(username)){
+                if (snapshot.hasChild(username)) {
                     String usernameNew = username.concat(String.valueOf(new Random().nextInt(100)));
                     insert(new User(email, usernameNew), signUpPresenter);
                 } else {
@@ -76,7 +80,7 @@ public class FirebaseDb {
         });
     }
 
-    private void insert(User user, ISignUpPresenter signUpPresenter){
+    private void insert(User user, ISignUpPresenter signUpPresenter) {
         databaseReference.child(user.getUsername()).setValue(user).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 signUpPresenter.success();

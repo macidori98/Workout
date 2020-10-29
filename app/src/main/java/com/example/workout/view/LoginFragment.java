@@ -11,9 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.workout.interfaces.ILoginView;
 import com.example.workout.R;
 import com.example.workout.interfaces.ILoginPresenter;
+import com.example.workout.interfaces.ILoginView;
 import com.example.workout.presenter.LoginPresenter;
 import com.example.workout.util.FragmentNavigation;
 import com.example.workout.util.Util;

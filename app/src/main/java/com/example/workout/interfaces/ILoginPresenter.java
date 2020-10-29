@@ -1,7 +1,9 @@
 package com.example.workout.interfaces;
 
-public interface ILoginPresenter{
+public interface ILoginPresenter {
     void handleLogin(String email, String password);
+
     void loginSuccess();
+
     void loginFail();
 }

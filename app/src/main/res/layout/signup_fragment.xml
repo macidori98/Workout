@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,13 +8,13 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp40"
+        android:fontFamily="cursive"
         android:text="@string/login_signup_button"
         android:textAlignment="center"
-        android:fontFamily="cursive"
         android:textColor="@color/colorText"
         android:textSize="@dimen/sp50"
         android:textStyle="bold"
-        android:layout_marginTop="@dimen/dp40"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -115,9 +114,9 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_marginBottom="@dimen/dp20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp20"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">

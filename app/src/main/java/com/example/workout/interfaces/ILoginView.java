@@ -1,5 +1,5 @@
 package com.example.workout.interfaces;
 
-public interface ILoginView extends IError{
+public interface ILoginView extends IError {
     void loginOnSuccess();
 }

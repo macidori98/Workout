@@ -2,8 +2,8 @@ package com.example.workout.presenter;
 
 import com.example.workout.R;
 import com.example.workout.database.FirebaseDb;
-import com.example.workout.interfaces.ILoginView;
 import com.example.workout.interfaces.ILoginPresenter;
+import com.example.workout.interfaces.ILoginView;
 import com.example.workout.util.GlobalValues;
 import com.example.workout.util.Util;
 
