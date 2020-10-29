@@ -19,7 +19,7 @@ public class Util {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 
-    public static boolean isValidPassword(String target) {
-        return (!TextUtils.isEmpty(target) && (target.length() >= 6));
+    public static boolean isValidStringLength(String target, int length) {
+        return (!TextUtils.isEmpty(target) && (target.length() >= length));
     }
 }

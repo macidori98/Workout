@@ -7,11 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.workout.R;
 import com.example.workout.database.DatabaseHelper;
+import com.example.workout.interfaces.IMainActivityView;
+import com.example.workout.utils.FragmentNavigation;
 import com.example.workout.views.HomeFragment;
 import com.example.workout.views.LoginFragment;
-import com.example.workout.utils.FragmentNavigation;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IMainActivityView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

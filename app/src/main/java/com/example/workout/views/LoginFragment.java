@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.workout.interfaces.ILogin;
+import com.example.workout.interfaces.ILoginView;
 import com.example.workout.R;
 import com.example.workout.interfaces.ILoginPresenter;
 import com.example.workout.presenters.LoginPresenter;
@@ -20,10 +20,10 @@ import com.example.workout.utils.Util;
 import com.google.android.material.snackbar.Snackbar;
 
 
-public class LoginFragment extends Fragment implements ILogin {
+public class LoginFragment extends Fragment implements ILoginView {
 
     private EditText emailEditText, passwordEditText;
-    private Button loginButton;//, signUpButton;
+    private Button loginButton, signUpButton;
     private ILoginPresenter iLoginPresenter;
 
     @Nullable
@@ -41,20 +41,20 @@ public class LoginFragment extends Fragment implements ILogin {
         this.emailEditText = view.findViewById(R.id.login_email_editText);
         this.passwordEditText = view.findViewById(R.id.login_password_editText);
         this.loginButton = view.findViewById(R.id.login_login_button);
-        //this.signUpButton = view.findViewById(R.id.login_signup_button);
+        this.signUpButton = view.findViewById(R.id.login_signup_button);
 
         iLoginPresenter = new LoginPresenter(this);
     }
 
     private void setOnClickListeners() {
         this.loginButton.setOnClickListener(v -> login());
+        this.signUpButton.setOnClickListener(
+                v -> FragmentNavigation.getInstance(getContext()).replaceFragment(new SignUpFragment(), R.id.fragment_content));
     }
 
     private void login() {
-        String email = this.emailEditText.getText().toString();
-        String password = this.passwordEditText.getText().toString();
-
-        iLoginPresenter.handleLogin(email,password);
+        iLoginPresenter.handleLogin(this.emailEditText.getText().toString(),
+                this.passwordEditText.getText().toString());
     }
 
     @Override
@@ -64,7 +64,7 @@ public class LoginFragment extends Fragment implements ILogin {
     }
 
     @Override
-    public void informUserError(int msgId, int colorId) {
-        Util.makeSnackBar(getView(), msgId, Snackbar.LENGTH_SHORT, colorId);
+    public void informUserError(int msgId) {
+        Util.makeSnackBar(getView(), msgId, Snackbar.LENGTH_SHORT, R.color.red);
     }
 }

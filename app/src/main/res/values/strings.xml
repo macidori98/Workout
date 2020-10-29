@@ -10,6 +10,21 @@
     <string name="login_button">Login</string>
     <string name="login_signup_button">Sign Up</string>
 
+    <!--DatabaseHelper-->
+    <string name="user_already_exists">User already exists</string>
+
+    <!--Sign up-->
+    <string name="enter_username">Enter username…</string>
+    <string name="confirm_password">Confirm password…</string>
+    <string name="accept_terms_and_conditions">Accept Terms and conditions</string>
+    <string name="signup_successful">You have signed up successfully</string>
+    <string name="check_terms">You have to accept Terms and Conditions</string>
+    <string name="passwords_dont_match">Inserted passwords do not match</string>
+    <string name="password_length">Your password has to contain at least 6 characters</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="username_length">Your username has to contain at least 4 characters</string>
+    <string name="username_fail">Your username should contain only alphabetical and numeric characters</string>
+
     <!--Error messages-->
     <string name="check_email_and_password">Check your email and password</string>
     <string name="login_successful">Login successful</string>
