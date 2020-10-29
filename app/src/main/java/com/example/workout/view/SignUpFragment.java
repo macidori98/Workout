@@ -25,7 +25,7 @@ public class SignUpFragment extends Fragment implements ISignUpView {
     private EditText emailEditText, usernameEditText, passwordEditText, confirmPasswordEditText;
     private CheckBox termsCheckBox;
     private Button signUpButton;
-    private ISignUpPresenter iSignUpPresenter;
+    private ISignUpPresenter signUpPresenter;
 
     @Nullable
     @Override
@@ -44,11 +44,11 @@ public class SignUpFragment extends Fragment implements ISignUpView {
         this.termsCheckBox = view.findViewById(R.id.signup_checkbox);
         this.signUpButton = view.findViewById(R.id.signup_button);
 
-        this.iSignUpPresenter = new SignUpPresenter(this);
+        this.signUpPresenter = new SignUpPresenter(this);
     }
 
     private void setOnClickListeners() {
-        this.signUpButton.setOnClickListener(v -> this.iSignUpPresenter.handleSignUp(
+        this.signUpButton.setOnClickListener(v -> this.signUpPresenter.handleSignUp(
                 this.emailEditText.getText().toString(),
                 this.usernameEditText.getText().toString(),
                 this.passwordEditText.getText().toString(),

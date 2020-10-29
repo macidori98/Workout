@@ -13,41 +13,41 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignUpPresenter implements ISignUpPresenter {
-    private final ISignUpView iSignUpView;
+    private final ISignUpView signUpView;
 
-    public SignUpPresenter(ISignUpView iSignUpView) {
-        this.iSignUpView = iSignUpView;
+    public SignUpPresenter(ISignUpView signUpView) {
+        this.signUpView = signUpView;
     }
 
     @Override
     public void handleSignUp(String email, String username, String password, String confirmPassword, CheckBox terms) {
         if (!terms.isChecked()) {
-            iSignUpView.informUserError(R.string.check_terms);
+            signUpView.informUserError(R.string.check_terms);
             return;
         }
 
         if (!this.passwordsMatch(password, confirmPassword)) {
-            iSignUpView.informUserError(R.string.passwords_dont_match);
+            signUpView.informUserError(R.string.passwords_dont_match);
             return;
         }
 
         if (!Util.isValidStringLength(password, GlobalValues.USERNAME_MIN_LENGTH)) {
-            iSignUpView.informUserError(R.string.password_length);
+            signUpView.informUserError(R.string.password_length);
             return;
         }
 
         if (!Util.isValidEmail(email)) {
-            iSignUpView.informUserError(R.string.invalid_email);
+            signUpView.informUserError(R.string.invalid_email);
             return;
         }
 
         if (!Util.isValidStringLength(username, GlobalValues.USERNAME_MIN_LENGTH)) {
-            iSignUpView.informUserError(R.string.username_length);
+            signUpView.informUserError(R.string.username_length);
             return;
         }
 
         if (!this.correctUsername(username)) {
-            iSignUpView.informUserError(R.string.username_fail);
+            signUpView.informUserError(R.string.username_fail);
             return;
         }
 
@@ -62,12 +62,12 @@ public class SignUpPresenter implements ISignUpPresenter {
 
     @Override
     public void failure(int msgId) {
-        iSignUpView.informUserError(msgId);
+        signUpView.informUserError(msgId);
     }
 
     @Override
     public void success() {
-        iSignUpView.signUpSuccess();
+        signUpView.signUpSuccess();
     }
 
     private boolean passwordsMatch(String password, String confirmPassword) {

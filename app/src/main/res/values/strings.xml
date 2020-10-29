@@ -28,5 +28,6 @@
     <!--Error messages-->
     <string name="check_email_and_password">Check your email and password</string>
     <string name="login_successful">Login successful</string>
+    <string name="fail">Fail</string>
     <string name="login_fail">Login failed. Check your email and password.</string>
 </resources>

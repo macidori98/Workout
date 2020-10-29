@@ -9,10 +9,10 @@ import com.example.workout.util.Util;
 
 public class LoginPresenter implements ILoginPresenter {
 
-    private final ILoginView iLoginView;
+    private final ILoginView loginView;
 
     public LoginPresenter(ILoginView iLogin) {
-        this.iLoginView = iLogin;
+        this.loginView = iLogin;
     }
 
     @Override
@@ -20,17 +20,17 @@ public class LoginPresenter implements ILoginPresenter {
         if (Util.isValidEmail(email) && Util.isValidStringLength(password, GlobalValues.PASSWORD_MIN_LENGTH)) {
             FirebaseDb.getInstance().login(email, password, this);
         } else {
-            iLoginView.informUserError(R.string.check_email_and_password);
+            loginView.informUserError(R.string.check_email_and_password);
         }
     }
 
     @Override
     public void loginSuccess() {
-        iLoginView.loginOnSuccess();
+        loginView.loginOnSuccess();
     }
 
     @Override
     public void loginFail() {
-        iLoginView.informUserError(R.string.login_fail);
+        loginView.informUserError(R.string.login_fail);
     }
 }
