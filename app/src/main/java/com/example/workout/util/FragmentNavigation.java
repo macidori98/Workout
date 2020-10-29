@@ -1,4 +1,4 @@
-package com.example.workout.utils;
+package com.example.workout.util;
 
 import android.content.Context;
 import android.os.Handler;
@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.workout.R;
-import com.example.workout.activities.MainActivity;
+import com.example.workout.activity.MainActivity;
 
 public class FragmentNavigation extends Fragment {
     public final static String TAG = FragmentNavigation.class.getSimpleName();

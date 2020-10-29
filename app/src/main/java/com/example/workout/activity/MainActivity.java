@@ -1,4 +1,4 @@
-package com.example.workout.activities;
+package com.example.workout.activity;
 
 import android.os.Bundle;
 import android.view.Window;
@@ -6,11 +6,11 @@ import android.view.Window;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.workout.R;
-import com.example.workout.database.DatabaseHelper;
+import com.example.workout.database.FirebaseDb;
 import com.example.workout.interfaces.IMainActivityView;
-import com.example.workout.utils.FragmentNavigation;
-import com.example.workout.views.HomeFragment;
-import com.example.workout.views.LoginFragment;
+import com.example.workout.util.FragmentNavigation;
+import com.example.workout.view.HomeFragment;
+import com.example.workout.view.LoginFragment;
 
 public class MainActivity extends AppCompatActivity implements IMainActivityView {
 
@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     @Override
     protected void onStart() {
         super.onStart();
-        DatabaseHelper.firebaseUser = DatabaseHelper.firebaseAuth.getCurrentUser();
-        if (DatabaseHelper.firebaseUser != null) {
+        FirebaseDb.firebaseUser = FirebaseDb.firebaseAuth.getCurrentUser();
+        if (FirebaseDb.firebaseUser != null) {
             FragmentNavigation.getInstance(this).replaceFragment(new HomeFragment(), R.id.fragment_content);
         } else {
             FragmentNavigation.getInstance(this).replaceFragment(new LoginFragment(), R.id.fragment_content);

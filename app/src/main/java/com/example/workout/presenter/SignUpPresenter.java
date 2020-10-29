@@ -1,13 +1,13 @@
-package com.example.workout.presenters;
+package com.example.workout.presenter;
 
 import android.widget.CheckBox;
 
 import com.example.workout.R;
-import com.example.workout.database.DatabaseHelper;
+import com.example.workout.database.FirebaseDb;
 import com.example.workout.interfaces.ISignUpPresenter;
 import com.example.workout.interfaces.ISignUpView;
-import com.example.workout.utils.GlobalValues;
-import com.example.workout.utils.Util;
+import com.example.workout.util.GlobalValues;
+import com.example.workout.util.Util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -51,7 +51,7 @@ public class SignUpPresenter implements ISignUpPresenter {
             return;
         }
 
-        DatabaseHelper.getInstance().createUser(email, password, username, this);
+        FirebaseDb.getInstance().createUser(email, password, username, this);
     }
 
     private boolean correctUsername(String username) {

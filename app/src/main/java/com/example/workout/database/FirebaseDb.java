@@ -3,8 +3,8 @@ package com.example.workout.database;
 import com.example.workout.R;
 import com.example.workout.interfaces.ILoginPresenter;
 import com.example.workout.interfaces.ISignUpPresenter;
-import com.example.workout.models.User;
-import com.example.workout.utils.GlobalValues;
+import com.example.workout.model.User;
+import com.example.workout.util.GlobalValues;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -12,17 +12,17 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
-public class DatabaseHelper {
+public class FirebaseDb {
     public static FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     public static FirebaseUser firebaseUser;
     private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
     public static DatabaseReference databaseReference;
 
-    private static DatabaseHelper databaseInstance;
+    private static FirebaseDb databaseInstance;
 
-    public static DatabaseHelper getInstance() {
+    public static FirebaseDb getInstance() {
         if (databaseInstance == null) {
-            databaseInstance = new DatabaseHelper();
+            databaseInstance = new FirebaseDb();
         }
 
         return databaseInstance;

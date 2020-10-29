@@ -1,4 +1,4 @@
-package com.example.workout.models;
+package com.example.workout.model;
 
 public class User {
     private final String email;

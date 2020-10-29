@@ -1,4 +1,4 @@
-package com.example.workout.views;
+package com.example.workout.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,9 +15,9 @@ import androidx.fragment.app.Fragment;
 import com.example.workout.R;
 import com.example.workout.interfaces.ISignUpPresenter;
 import com.example.workout.interfaces.ISignUpView;
-import com.example.workout.presenters.SignUpPresenter;
-import com.example.workout.utils.FragmentNavigation;
-import com.example.workout.utils.Util;
+import com.example.workout.presenter.SignUpPresenter;
+import com.example.workout.util.FragmentNavigation;
+import com.example.workout.util.Util;
 import com.google.android.material.snackbar.Snackbar;
 
 public class SignUpFragment extends Fragment implements ISignUpView {

@@ -1,4 +1,4 @@
-package com.example.workout.utils;
+package com.example.workout.util;
 
 import android.text.TextUtils;
 import android.util.Patterns;

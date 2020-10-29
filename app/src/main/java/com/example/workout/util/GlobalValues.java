@@ -1,4 +1,4 @@
-package com.example.workout.utils;
+package com.example.workout.util;
 
 public class GlobalValues {
     public static final int PASSWORD_MIN_LENGTH = 6;

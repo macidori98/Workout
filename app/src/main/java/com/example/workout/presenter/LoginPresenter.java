@@ -1,11 +1,11 @@
-package com.example.workout.presenters;
+package com.example.workout.presenter;
 
 import com.example.workout.R;
-import com.example.workout.database.DatabaseHelper;
+import com.example.workout.database.FirebaseDb;
 import com.example.workout.interfaces.ILoginView;
 import com.example.workout.interfaces.ILoginPresenter;
-import com.example.workout.utils.GlobalValues;
-import com.example.workout.utils.Util;
+import com.example.workout.util.GlobalValues;
+import com.example.workout.util.Util;
 
 public class LoginPresenter implements ILoginPresenter {
 
@@ -18,7 +18,7 @@ public class LoginPresenter implements ILoginPresenter {
     @Override
     public void handleLogin(String email, String password) {
         if (Util.isValidEmail(email) && Util.isValidStringLength(password, GlobalValues.PASSWORD_MIN_LENGTH)) {
-            DatabaseHelper.getInstance().login(email, password, this);
+            FirebaseDb.getInstance().login(email, password, this);
         } else {
             iLoginView.informUserError(R.string.check_email_and_password);
         }
