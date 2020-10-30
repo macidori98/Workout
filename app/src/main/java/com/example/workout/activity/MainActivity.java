@@ -60,6 +60,11 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     }
 
     @Override
+    public void onBackPressed() {
+        FragmentNavigation.getInstance(getApplicationContext()).onBackPressed(this);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         IMainActivityPresenter mainActivityPresenter = new MainActivityPresenter(this);

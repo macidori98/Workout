@@ -18,6 +18,7 @@ import com.example.workout.R;
 import com.example.workout.interfaces.IAddNewWorkoutPresenter;
 import com.example.workout.interfaces.IAddNewWorkoutView;
 import com.example.workout.presenter.AddNewWorkoutPresenter;
+import com.example.workout.util.GlobalValues;
 import com.example.workout.util.Util;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -66,16 +67,18 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
         int month = mCalender.get(Calendar.MONTH);
         int dayOfMonth = mCalender.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view, year1, month1, dayOfMonth1) -> {
-            String date = dayOfMonth1 + "-" + (month1 + 1) + "-" + year1;
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.DialogTheme,
+                (view, year1, month1, dayOfMonth1) -> {
+            String date = dayOfMonth1 + GlobalValues.LINE + (month1 + 1) + GlobalValues.LINE + year1;
             dateOfWorkoutTextView.setText(date);
         }, year, month, dayOfMonth);
         datePickerDialog.show();
     }
 
     @Override
-    public void updateUI(String text) {
-
+    public void updateUI() {
+        Util.makeSnackBar(getView(), R.string.data_added_successfully, Snackbar.LENGTH_SHORT, R.color.green);
+        //TODO: hide the fragment
     }
 
     @Override

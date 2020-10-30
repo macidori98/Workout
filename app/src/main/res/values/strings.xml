@@ -36,6 +36,8 @@
     <string name="enter_duration_of_workout">Enter duration of workout…</string>
     <string name="choose_date">Choose date</string>
     <string name="upload_photo">Upload photo</string>
+    <string name="data_added_successfully">Workout added successfully</string>
+    <string name="data_adding_fail">Failed to add workout</string>
 
     <!--Error messages-->
     <string name="check_email_and_password">Check your email and password</string>

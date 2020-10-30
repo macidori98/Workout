@@ -10,6 +10,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.workout.R;
 import com.example.workout.activity.MainActivity;
+import com.example.workout.view.AddNewWorkoutFragment;
+import com.example.workout.view.HomeFragment;
+import com.example.workout.view.LoginFragment;
 
 public class FragmentNavigation extends Fragment {
     public final static String TAG = FragmentNavigation.class.getSimpleName();
@@ -61,7 +64,7 @@ public class FragmentNavigation extends Fragment {
         return fragmentManager.findFragmentById(container);
     }
 
-    /*public void onBackPressed(MainActivity activity) {
+    public void onBackPressed(MainActivity activity) {
         // If Home page is open: double press exit:
         if (getCurrentFragment(iMainActivityFragmentContainer) instanceof LoginFragment) {
             doublePressExit(activity);
@@ -69,63 +72,18 @@ public class FragmentNavigation extends Fragment {
         }
 
         if (getCurrentFragment(iMainActivityFragmentContainer) instanceof HomeFragment) {
-            popBackStack();
+            doublePressExit(activity);
             return;
         }
 
-        if (getCurrentFragment(iMainActivityFragmentContainer) instanceof ProfileFragment) {
-            popBackStack();
-            return;
-        }
-
-        if (getCurrentFragment(iMainActivityFragmentContainer) instanceof TeamHasSkillsChartFragment) {
-            popBackStack();
-            return;
-        }
-
-        if (getCurrentFragment(iMainActivityFragmentContainer) instanceof SendMessageFragment) {
-            popBackStack();
-            return;
-        }
-
-        if (getCurrentFragment(iMainActivityFragmentContainer) instanceof TeamHasProjectsFragment) {
-            popBackStack();
-            return;
-        }
-
-        if (getCurrentFragment(iMainActivityFragmentContainer) instanceof TeamFragment) {
-            popBackStack();
-            return;
-        }
-
-        if (getCurrentFragment(iMainActivityFragmentContainer) instanceof SettingsFragment) {
-            popBackStack();
-            return;
-        }
-
-        if (getCurrentFragment(iMainActivityFragmentContainer) instanceof SkillsFragment) {
-            popBackStack();
-            return;
-        }
-
-        if (getCurrentFragment(iMainActivityFragmentContainer) instanceof VacationRequestFragment) {
-            popBackStack();
-            return;
-        }
-
-        if (getCurrentFragment(iMainActivityFragmentContainer) instanceof SalaryRaiseHistoryFragment) {
-            popBackStack();
-            return;
-        }
-
-        if (getCurrentFragment(iMainActivityFragmentContainer) instanceof FreeDaysHistoryFragment) {
+        if (getCurrentFragment(iMainActivityFragmentContainer) instanceof AddNewWorkoutFragment) {
             popBackStack();
             return;
         }
 
         //Other cases:
         activity.moveTaskToBack(true);
-    }*/
+    }
 
     private void doublePressExit(MainActivity activity) {
         if (bDoubleBackToExitPressedOnce) {
