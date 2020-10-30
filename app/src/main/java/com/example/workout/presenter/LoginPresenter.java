@@ -20,17 +20,17 @@ public class LoginPresenter implements ILoginPresenter {
         if (Util.isValidEmail(email) && Util.isValidStringLength(password, GlobalValues.PASSWORD_MIN_LENGTH)) {
             FirebaseDb.getInstance().login(email, password, this);
         } else {
-            loginView.informUserError(R.string.check_email_and_password);
+            this.loginView.informUserError(R.string.check_email_and_password);
         }
     }
 
     @Override
     public void loginSuccess() {
-        loginView.loginOnSuccess();
+        this.loginView.loginOnSuccess();
     }
 
     @Override
     public void loginFail() {
-        loginView.informUserError(R.string.login_fail);
+        this.loginView.informUserError(R.string.login_fail);
     }
 }

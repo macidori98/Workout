@@ -31,8 +31,8 @@ public class SignUpFragment extends Fragment implements ISignUpView {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.signup_fragment, container, false);
-        initializeElements(view);
-        setOnClickListeners();
+        this.initializeElements(view);
+        this.setOnClickListeners();
         return view;
     }
 
@@ -66,6 +66,6 @@ public class SignUpFragment extends Fragment implements ISignUpView {
     @Override
     public void signUpSuccess() {
         FragmentNavigation.getInstance(getContext()).replaceFragment(new HomeFragment(), R.id.fragment_content);
-        Util.makeSnackBar(getView(), R.string.signup_successful, Snackbar.LENGTH_SHORT, R.color.green);
+        Util.makeSnackBar(getView(), R.string.sign_up_successful, Snackbar.LENGTH_SHORT, R.color.green);
     }
 }

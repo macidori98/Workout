@@ -21,7 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Workout"
         tools:ignore="AllowBackup">
-        <activity
+        <!--activity
             android:name=".activity.WorkoutTrackerSplashScreenActivity"
             android:configChanges="uiMode"
             android:screenOrientation="portrait"
@@ -31,13 +31,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-->
         <activity android:name=".activity.MainActivity"
             android:configChanges="uiMode"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

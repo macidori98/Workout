@@ -43,7 +43,7 @@ public class LoginFragment extends Fragment implements ILoginView {
         this.loginButton = view.findViewById(R.id.login_login_button);
         this.signUpButton = view.findViewById(R.id.login_signup_button);
 
-        loginPresenter = new LoginPresenter(this);
+        this.loginPresenter = new LoginPresenter(this);
     }
 
     private void setOnClickListeners() {
@@ -53,7 +53,7 @@ public class LoginFragment extends Fragment implements ILoginView {
     }
 
     private void login() {
-        loginPresenter.handleLogin(this.emailEditText.getText().toString(),
+        this.loginPresenter.handleLogin(this.emailEditText.getText().toString(),
                 this.passwordEditText.getText().toString());
     }
 

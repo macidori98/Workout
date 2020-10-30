@@ -1,5 +1,7 @@
 package com.example.workout.database;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.workout.R;
@@ -20,8 +22,8 @@ import java.util.Random;
 
 public class FirebaseDb {
     private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    public static DatabaseReference databaseReference;
     private static final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private static DatabaseReference databaseReference;
     private static FirebaseUser firebaseUser;
     private static FirebaseDb databaseInstance;
 
@@ -35,6 +37,9 @@ public class FirebaseDb {
 
     public FirebaseUser getFirebaseUser() {
         firebaseUser = firebaseAuth.getCurrentUser();
+        if (firebaseUser != null) {
+            this.setCurrentSession();
+        }
         return firebaseUser;
     }
 
@@ -42,6 +47,7 @@ public class FirebaseDb {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 firebaseUser = Objects.requireNonNull(task.getResult()).getUser();
+                this.setCurrentSession();
                 loginPresenter.loginSuccess();
             } else {
                 loginPresenter.loginFail();
@@ -52,7 +58,7 @@ public class FirebaseDb {
     public void createUser(String email, String password, String username, ISignUpPresenter signUpPresenter) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                insertUser(email, username, signUpPresenter);
+                this.insertUser(email, username, signUpPresenter);
             } else {
                 signUpPresenter.failure(R.string.user_already_exists);
             }
@@ -83,6 +89,28 @@ public class FirebaseDb {
         databaseReference.child(user.getUsername()).setValue(user).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 signUpPresenter.success();
+            }
+        });
+    }
+
+    private void setCurrentSession() {
+        databaseReference = database.getReference(GlobalValues.USERS);
+        String firebaseUserEmail = firebaseUser.getEmail();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snap : snapshot.getChildren()) {
+                    String email = snap.child(GlobalValues.EMAIL).getValue().toString();
+                    if (email.equals(firebaseUserEmail)) {
+                        GlobalValues.CURRENT_SESSION = snap.child(GlobalValues.USERNAME).getValue().toString();
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d(GlobalValues.DB, error.toString());
             }
         });
     }

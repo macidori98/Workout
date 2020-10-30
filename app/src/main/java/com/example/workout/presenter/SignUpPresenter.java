@@ -22,32 +22,32 @@ public class SignUpPresenter implements ISignUpPresenter {
     @Override
     public void handleSignUp(String email, String username, String password, String confirmPassword, CheckBox terms) {
         if (!terms.isChecked()) {
-            signUpView.informUserError(R.string.check_terms);
+            this.signUpView.informUserError(R.string.check_terms);
             return;
         }
 
         if (!this.passwordsMatch(password, confirmPassword)) {
-            signUpView.informUserError(R.string.passwords_dont_match);
+            this.signUpView.informUserError(R.string.passwords_dont_match);
             return;
         }
 
         if (!Util.isValidStringLength(password, GlobalValues.USERNAME_MIN_LENGTH)) {
-            signUpView.informUserError(R.string.password_length);
+            this.signUpView.informUserError(R.string.password_length);
             return;
         }
 
         if (!Util.isValidEmail(email)) {
-            signUpView.informUserError(R.string.invalid_email);
+            this.signUpView.informUserError(R.string.invalid_email);
             return;
         }
 
         if (!Util.isValidStringLength(username, GlobalValues.USERNAME_MIN_LENGTH)) {
-            signUpView.informUserError(R.string.username_length);
+            this.signUpView.informUserError(R.string.username_length);
             return;
         }
 
         if (!this.correctUsername(username)) {
-            signUpView.informUserError(R.string.username_fail);
+            this.signUpView.informUserError(R.string.username_fail);
             return;
         }
 
@@ -55,7 +55,7 @@ public class SignUpPresenter implements ISignUpPresenter {
     }
 
     private boolean correctUsername(String username) {
-        Pattern pattern = Pattern.compile("[a-zA-Z0-9]*");
+        Pattern pattern = Pattern.compile(GlobalValues.REGEX);
         Matcher matcher = pattern.matcher(username);
         return matcher.matches();
     }

@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp40"
-        android:fontFamily="cursive"
-        android:text="@string/login_signup_button"
+        android:fontFamily="casual"
+        android:text="@string/sign_up"
         android:textAlignment="center"
         android:textColor="@color/colorText"
         android:textSize="@dimen/sp50"
@@ -38,7 +38,7 @@
             android:drawableStart="@drawable/email"
             android:drawableTint="?colorPrimary"
             android:ems="10"
-            android:hint="@string/login_editText_email"
+            android:hint="@string/enter_email"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
             android:paddingStart="@dimen/dp30"
@@ -80,7 +80,7 @@
             android:drawableStart="@drawable/key"
             android:drawableTint="?colorPrimary"
             android:ems="10"
-            android:hint="@string/login_editText_password"
+            android:hint="@string/enter_password"
             android:importantForAutofill="no"
             android:inputType="textPassword"
             android:paddingStart="@dimen/dp30"
@@ -121,15 +121,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.appcompat.widget.AppCompatCheckBox
+        <CheckBox
             android:id="@+id/signup_checkbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp20"
             android:layout_marginEnd="@dimen/dp20"
+            android:buttonTint="?colorPrimaryVariant"
             android:layout_marginBottom="@dimen/dp10"
             android:text="@string/accept_terms_and_conditions"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/signup_button"
@@ -143,7 +146,7 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:text="@string/login_signup_button"
+            android:text="@string/sign_up"
             android:textColor="@color/colorText"
             android:textStyle="bold" />
 
