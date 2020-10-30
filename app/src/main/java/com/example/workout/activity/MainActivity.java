@@ -1,5 +1,6 @@
 package com.example.workout.activity;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.workout.R;
@@ -69,10 +71,20 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
         super.onStart();
         IMainActivityPresenter mainActivityPresenter = new MainActivityPresenter(this);
         mainActivityPresenter.handleNextView();
+
+        ActivityCompat.requestPermissions(this,
+                GlobalValues.PERMISSIONS,
+                GlobalValues.STORAGE_PERMISSION_CODE);
     }
 
     @Override
     public void showFragment(Fragment fragment) {
         FragmentNavigation.getInstance(this).replaceFragment(fragment, R.id.fragment_content);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("ANYAD", "dfhbjdsfuhjbvksdfjb");
     }
 }

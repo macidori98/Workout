@@ -6,6 +6,16 @@ public class Workout {
     private final String dateOfWorkout;
     private final int minutes;
     private final String addedDate;
+    private final String photoUri;
+
+    public Workout(String workoutName, String burnedCalories, String dateOfWorkout, int minutes, String addedDate, String photoUri) {
+        this.workoutName = workoutName;
+        this.burnedCalories = burnedCalories;
+        this.dateOfWorkout = dateOfWorkout;
+        this.minutes = minutes;
+        this.addedDate = addedDate;
+        this.photoUri = photoUri;
+    }
 
     public Workout(String workoutName, String burnedCalories, String dateOfWorkout, int minutes, String addedDate) {
         this.workoutName = workoutName;
@@ -13,6 +23,7 @@ public class Workout {
         this.dateOfWorkout = dateOfWorkout;
         this.minutes = minutes;
         this.addedDate = addedDate;
+        this.photoUri = "";
     }
 
     public String getWorkoutName() {

@@ -2,6 +2,7 @@ package com.example.workout.util;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -76,13 +77,13 @@ public class FragmentNavigation extends Fragment {
             return;
         }
 
-        if (getCurrentFragment(iMainActivityFragmentContainer) instanceof AddNewWorkoutFragment) {
+       /* if (getCurrentFragment(iMainActivityFragmentContainer) instanceof AddNewWorkoutFragment) {
             popBackStack();
             return;
-        }
+        }*/
 
         //Other cases:
-        activity.moveTaskToBack(true);
+        //activity.moveTaskToBack(true);
     }
 
     private void doublePressExit(MainActivity activity) {

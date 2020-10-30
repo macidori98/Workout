@@ -1,6 +1,8 @@
 package com.example.workout.database;
 
+import android.net.Uri;
 import android.util.Log;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
@@ -20,6 +22,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Objects;
 import java.util.Random;
@@ -79,6 +83,10 @@ public class FirebaseDb {
               addNewWorkoutPresenter.failure(R.string.data_adding_fail);
           }
         });
+    }
+
+    private void uploadPhoto(String filePath) {
+        StorageReference mStorageRef = FirebaseStorage.getInstance().getReference().child("images/");
     }
 
     private void insertUser(String email, String username, ISignUpPresenter signUpPresenter) {

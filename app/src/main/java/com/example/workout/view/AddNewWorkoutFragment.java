@@ -1,7 +1,10 @@
 package com.example.workout.view;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,8 +31,8 @@ import java.util.Calendar;
 public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutView {
 
     private EditText workoutNameEditText, burnedCaloriesEditText, durationEditText;
-    private TextView dateOfWorkoutTextView;
-    private ImageButton calendarImageButton;
+    private TextView dateOfWorkoutTextView, photoTextView;
+    private ImageButton calendarImageButton, uploadPhotoImageButton, takePhotoImageButton;
     private Button addButton;
     private IAddNewWorkoutPresenter addNewWorkoutPresenter;
 
@@ -48,6 +52,9 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
         this.durationEditText = view.findViewById(R.id.add_workout_duration_editText);
         this.dateOfWorkoutTextView = view.findViewById(R.id.add_workout_date_of_workout_textView);
         this.workoutNameEditText = view.findViewById(R.id.add_workout_name_editText);
+        this.uploadPhotoImageButton = view.findViewById(R.id.add_workout_upload_photo_imageButton);
+        this.takePhotoImageButton = view.findViewById(R.id.add_workout_take_photo_imageButton);
+        this.photoTextView = view.findViewById(R.id.add_workout_upload_photo_imageButton_textView);
         this.addNewWorkoutPresenter = new AddNewWorkoutPresenter(this);
     }
 
@@ -59,6 +66,27 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
                 burnedCaloriesEditText.getText().toString(),
                 dateOfWorkoutTextView.getText().toString(),
                 durationEditText.getText().toString()));
+
+        this.uploadPhotoImageButton.setOnClickListener(v -> this.pickImage());
+    }
+
+    private void pickImage() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType(GlobalValues.STAR);
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[] {
+                "image/jpeg",
+                "image/jpg",
+                "image/png"
+        });
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode,int resultCode,Intent data){
+        // Result code is RESULT_OK only if the user selects an Image
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK)
+            Toast.makeText(getContext(), "sdgf", Toast.LENGTH_SHORT).show();
     }
 
     private void pickDate() {
@@ -78,7 +106,6 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
     @Override
     public void updateUI() {
         Util.makeSnackBar(getView(), R.string.data_added_successfully, Snackbar.LENGTH_SHORT, R.color.green);
-        //TODO: hide the fragment
     }
 
     @Override

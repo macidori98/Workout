@@ -8,11 +8,14 @@ import com.example.workout.interfaces.IAddNewWorkoutPresenter;
 import com.example.workout.interfaces.IAddNewWorkoutView;
 import com.example.workout.model.Workout;
 import com.example.workout.util.GlobalValues;
+import com.example.workout.view.AddNewWorkoutFragment;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class AddNewWorkoutPresenter implements IAddNewWorkoutPresenter {
+
+    public static final String TAG = AddNewWorkoutFragment.class.getSimpleName();
 
     private final IAddNewWorkoutView addNewWorkoutView;
 

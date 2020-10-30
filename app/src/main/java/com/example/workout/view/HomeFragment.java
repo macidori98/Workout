@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class HomeFragment extends Fragment {
 
     private FloatingActionButton addFloatingActionButton;
-    private RecyclerView workoutHistoryRecyclerView;
+  //  private RecyclerView workoutHistoryRecyclerView;
     private Button logoutButton;
 
     @Nullable
@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
 
     private void initializeElements(View view) {
         this.addFloatingActionButton = view.findViewById(R.id.add_new_workout_floatingActionButton);
-        this.workoutHistoryRecyclerView = view.findViewById(R.id.workout_history_recyclerview);
+      //  this.workoutHistoryRecyclerView = view.findViewById(R.id.workout_history_recyclerview);
         this.logoutButton = view.findViewById(R.id.button_test);
     }
 
