@@ -36,4 +36,6 @@ public class GlobalValues {
     };
 
     public static String CURRENT_SESSION;
+    public static int CHECK = 0;
+
 }

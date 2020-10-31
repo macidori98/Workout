@@ -4,13 +4,13 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,10 +30,13 @@ import java.util.Calendar;
 
 public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutView {
 
+    public static final String TAG = AddNewWorkoutFragment.class.getSimpleName();
+
     private EditText workoutNameEditText, burnedCaloriesEditText, durationEditText;
     private TextView dateOfWorkoutTextView, photoTextView;
     private ImageButton calendarImageButton, uploadPhotoImageButton, takePhotoImageButton;
     private Button addButton;
+    private ImageView selectedImageView;
     private IAddNewWorkoutPresenter addNewWorkoutPresenter;
 
     @Nullable
@@ -54,6 +57,7 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
         this.workoutNameEditText = view.findViewById(R.id.add_workout_name_editText);
         this.uploadPhotoImageButton = view.findViewById(R.id.add_workout_upload_photo_imageButton);
         this.takePhotoImageButton = view.findViewById(R.id.add_workout_take_photo_imageButton);
+        this.selectedImageView = view.findViewById(R.id.uploaded_image_imageView);
         this.photoTextView = view.findViewById(R.id.add_workout_upload_photo_imageButton_textView);
         this.addNewWorkoutPresenter = new AddNewWorkoutPresenter(this);
     }
@@ -73,20 +77,15 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
     private void pickImage() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(GlobalValues.STAR);
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[] {
-                "image/jpeg",
-                "image/jpg",
-                "image/png"
-        });
-        startActivityForResult(intent, 1);
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, GlobalValues.MIME_TYPES);
+        startActivityForResult(intent, GlobalValues.REQUEST_CODE);
     }
 
     @Override
-    public void onActivityResult(int requestCode,int resultCode,Intent data){
-        // Result code is RESULT_OK only if the user selects an Image
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK)
-            Toast.makeText(getContext(), "sdgf", Toast.LENGTH_SHORT).show();
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            Toast.makeText(getContext(), "OK", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void pickDate() {
@@ -97,9 +96,9 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), R.style.DialogTheme,
                 (view, year1, month1, dayOfMonth1) -> {
-            String date = dayOfMonth1 + GlobalValues.LINE + (month1 + 1) + GlobalValues.LINE + year1;
-            dateOfWorkoutTextView.setText(date);
-        }, year, month, dayOfMonth);
+                    String date = dayOfMonth1 + GlobalValues.LINE + (month1 + 1) + GlobalValues.LINE + year1;
+                    dateOfWorkoutTextView.setText(date);
+                }, year, month, dayOfMonth);
         datePickerDialog.show();
     }
 

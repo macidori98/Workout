@@ -1,8 +1,6 @@
 package com.example.workout.database;
 
-import android.net.Uri;
 import android.util.Log;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
@@ -13,8 +11,6 @@ import com.example.workout.interfaces.ISignUpPresenter;
 import com.example.workout.model.User;
 import com.example.workout.model.Workout;
 import com.example.workout.util.GlobalValues;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -77,11 +73,11 @@ public class FirebaseDb {
         databaseReference = database.getReference(GlobalValues.WORKOUT);
         String id = databaseReference.push().getKey();
         databaseReference.child(GlobalValues.CURRENT_SESSION).child(id).setValue(workout).addOnCompleteListener(task -> {
-          if (task.isSuccessful()) {
-              addNewWorkoutPresenter.success();
-          } else {
-              addNewWorkoutPresenter.failure(R.string.data_adding_fail);
-          }
+            if (task.isSuccessful()) {
+                addNewWorkoutPresenter.success();
+            } else {
+                addNewWorkoutPresenter.failure(R.string.data_adding_fail);
+            }
         });
     }
 

@@ -13,7 +13,7 @@
         android:text="@string/sign_up"
         android:textAlignment="center"
         android:textColor="@color/colorText"
-        android:textSize="@dimen/sp50"
+        android:textSize="@dimen/sp40"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -127,8 +127,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp20"
             android:layout_marginEnd="@dimen/dp20"
-            android:buttonTint="?colorPrimaryVariant"
             android:layout_marginBottom="@dimen/dp10"
+            android:buttonTint="?colorPrimaryVariant"
             android:text="@string/accept_terms_and_conditions"
             android:textAlignment="center"
             android:textColor="@color/colorText"

@@ -39,7 +39,7 @@ public class AddNewWorkoutPresenter implements IAddNewWorkoutPresenter {
             return;
         }
 
-        if (!dateOfWorkout.matches(GlobalValues.DATE_PATTERN_REGEX)){
+        if (!dateOfWorkout.matches(GlobalValues.DATE_PATTERN_REGEX)) {
             this.addNewWorkoutView.informUserError(R.string.choose_date);
             return;
         }

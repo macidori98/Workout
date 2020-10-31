@@ -1,6 +1,5 @@
 package com.example.workout.activity;
 
-import android.Manifest;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -80,11 +79,5 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     @Override
     public void showFragment(Fragment fragment) {
         FragmentNavigation.getInstance(this).replaceFragment(fragment, R.id.fragment_content);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d("ANYAD", "dfhbjdsfuhjbvksdfjb");
     }
 }

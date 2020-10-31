@@ -22,6 +22,9 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class LoginFragment extends Fragment implements ILoginView {
 
+    public static final String TAG = LoginFragment.class.getSimpleName();
+
+
     private EditText emailEditText, passwordEditText;
     private Button loginButton, signUpButton;
     private ILoginPresenter loginPresenter;

@@ -10,10 +10,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp40"
         android:fontFamily="casual"
+        android:padding="@dimen/dp10"
         android:text="@string/add_new_workout"
         android:textAlignment="center"
         android:textColor="@color/colorText"
-        android:textSize="@dimen/sp50"
+        android:textSize="@dimen/sp40"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -126,16 +127,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp40"
                     android:background="@color/material_on_surface_stroke"
-                    android:src="@drawable/calendar"
-                    app:tint="?colorPrimaryVariant"
                     android:clickable="true"
+                    android:contentDescription="@string/choose_date"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
+                    android:src="@drawable/calendar"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="@string/choose_date" />
+                    app:tint="?colorPrimaryVariant" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -145,8 +146,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp20"
-            android:layout_marginEnd="@dimen/dp20"
             android:layout_marginTop="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp20"
             android:baselineAligned="false"
             android:orientation="horizontal">
 
@@ -173,16 +174,16 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:visibility="gone"
-                    android:contentDescription="@string/empty"
-                    android:src="@android:color/holo_red_dark"
                     android:id="@+id/uploaded_image_imageView"
                     android:layout_width="@dimen/dp100"
                     android:layout_height="@dimen/dp100"
+                    android:contentDescription="@string/empty"
+                    android:src="@android:color/holo_red_dark"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -196,16 +197,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp40"
                     android:background="@color/material_on_surface_stroke"
-                    android:src="@drawable/upload"
-                    app:tint="?colorPrimaryVariant"
                     android:clickable="true"
+                    android:contentDescription="@string/choose_date"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
+                    android:src="@drawable/upload"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="@string/choose_date" />
+                    app:tint="?colorPrimaryVariant" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -219,16 +220,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp40"
                     android:background="@color/material_on_surface_stroke"
-                    android:src="@drawable/camera"
-                    app:tint="?colorPrimaryVariant"
                     android:clickable="true"
+                    android:contentDescription="@string/choose_date"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
+                    android:src="@drawable/camera"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="@string/choose_date" />
+                    app:tint="?colorPrimaryVariant" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

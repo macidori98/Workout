@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import com.example.workout.database.FirebaseDb;
 import com.example.workout.interfaces.IMainActivityPresenter;
 import com.example.workout.interfaces.IMainActivityView;
+import com.example.workout.util.GlobalValues;
 import com.example.workout.view.HomeFragment;
 import com.example.workout.view.LoginFragment;
 
@@ -22,10 +23,13 @@ public class MainActivityPresenter implements IMainActivityPresenter {
 
     @Override
     public void handleNextView() {
-        if (FirebaseDb.getInstance().getFirebaseUser() == null) {
-            this.delaying(new LoginFragment());
-        } else {
-            this.delaying(new HomeFragment());
+        if (GlobalValues.CHECK == 0) {
+            GlobalValues.CHECK = GlobalValues.STORAGE_PERMISSION_CODE;
+            if (FirebaseDb.getInstance().getFirebaseUser() == null) {
+                this.delaying(new LoginFragment());
+            } else {
+                this.delaying(new HomeFragment());
+            }
         }
     }
 
