@@ -19,7 +19,6 @@ import com.example.workout.R;
 import com.example.workout.adapter.WorkoutHistoryAdapter;
 import com.example.workout.interfaces.IHomePresenter;
 import com.example.workout.interfaces.IHomeView;
-import com.example.workout.interfaces.IOnItemClickListener;
 import com.example.workout.model.Workout;
 import com.example.workout.presenter.HomePresenter;
 import com.example.workout.util.FragmentNavigation;
@@ -77,9 +76,7 @@ public class HomeFragment extends Fragment implements IHomeView {
     public void updateUI(List<Workout> workoutList) {
         this.helloUserTextView.setText(GlobalValues.HELLO.concat(GlobalValues.CURRENT_SESSION));
         WorkoutHistoryAdapter workoutHistoryAdapter = new WorkoutHistoryAdapter(workoutList, getContext());
-        workoutHistoryAdapter.setOnClickListener(position -> {
-            FragmentNavigation.getInstance(getContext()).replaceFragment(new WorkoutDetailsFragment(workoutList.get(position)), R.id.fragment_content);
-        });
+        workoutHistoryAdapter.setOnClickListener(position -> FragmentNavigation.getInstance(getContext()).replaceFragment(new WorkoutDetailsFragment(workoutList.get(position)), R.id.fragment_content));
         this.workoutHistoryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         this.workoutHistoryRecyclerView.setAdapter(workoutHistoryAdapter);
         this.workoutHistoryRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
