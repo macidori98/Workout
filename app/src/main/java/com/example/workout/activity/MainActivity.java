@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
     protected void onStart() {
         super.onStart();
         IMainActivityPresenter mainActivityPresenter = new MainActivityPresenter(this);
-        mainActivityPresenter.handleNextView();
+        mainActivityPresenter.handleNextView(this);
 
         ActivityCompat.requestPermissions(this,
                 GlobalValues.PERMISSIONS,

@@ -15,7 +15,6 @@ import com.example.workout.view.HomeFragment;
 import com.example.workout.view.LoginFragment;
 
 public class FragmentNavigation extends Fragment {
-    public final static String TAG = FragmentNavigation.class.getSimpleName();
     private static final Handler handler = new Handler();
     private static int iMainActivityFragmentContainer;
     private static boolean bDoubleBackToExitPressedOnce = false;

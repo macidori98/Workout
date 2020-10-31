@@ -1,5 +1,7 @@
 package com.example.workout.presenter;
 
+import android.content.Context;
+
 import com.example.workout.R;
 import com.example.workout.database.FirebaseDb;
 import com.example.workout.interfaces.ILoginPresenter;
@@ -16,9 +18,9 @@ public class LoginPresenter implements ILoginPresenter {
     }
 
     @Override
-    public void handleLogin(String email, String password) {
+    public void handleLogin(String email, String password, Context context) {
         if (Util.isValidEmail(email) && Util.isValidStringLength(password, GlobalValues.PASSWORD_MIN_LENGTH)) {
-            FirebaseDb.getInstance().login(email, password, this);
+            FirebaseDb.getInstance().login(email, password, this, context);
         } else {
             this.loginView.informUserError(R.string.check_email_and_password);
         }

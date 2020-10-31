@@ -17,12 +17,13 @@ public class GlobalValues {
     public static final String EMAIL = "email";
     public static final String DB = "DB";
     public static final String IMAGE = "images/";
-    public static final String DATE_PATTERN = "yyyyMMdd";
+    public static final String DATE_PATTERN = "yyyyMMddHHmmss";
     public static final String WORKOUT_NAME = "workout_";
     public static final String DATE_PATTERN_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";
     public static final String REGEX = "[a-zA-Z0-9]*";
     public static final String LINE = "-";
     public static final String STAR = "image/*";
+    public static final String EMPTY = "";
     public static final String[] MIME_TYPES = {
             "image/jpeg",
             "image/jpg",
@@ -35,6 +36,7 @@ public class GlobalValues {
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
     };
+    public static final String HELLO = "Hello, ";
 
     public static String CURRENT_SESSION;
     public static int CHECK = 0;

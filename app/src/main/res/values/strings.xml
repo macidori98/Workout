@@ -47,4 +47,7 @@
     <string name="login_fail">Login failed. Check your email and password.</string>
     <string name="image_upload_successfully">Image choosed successfully</string>
     <string name="fail_image_choose">Failed image choose</string>
+    <string name="details">Workout details</string>
+    <string name="workout_image">workout image</string>
+    <string name="logout_success">Logout successfully</string>
 </resources>

@@ -22,9 +22,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class SignUpFragment extends Fragment implements ISignUpView {
 
-    public static final String TAG = SignUpFragment.class.getSimpleName();
-
-
     private EditText emailEditText, usernameEditText, passwordEditText, confirmPasswordEditText;
     private CheckBox termsCheckBox;
     private Button signUpButton;

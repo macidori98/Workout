@@ -31,8 +31,6 @@ import java.util.Calendar;
 
 public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutView {
 
-    public static final String TAG = AddNewWorkoutFragment.class.getSimpleName();
-
     private EditText workoutNameEditText, burnedCaloriesEditText, durationEditText;
     private TextView dateOfWorkoutTextView, photoTextView;
     private ImageButton calendarImageButton, uploadPhotoImageButton, takePhotoImageButton;
