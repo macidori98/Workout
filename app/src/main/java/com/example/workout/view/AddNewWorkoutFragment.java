@@ -1,8 +1,8 @@
 package com.example.workout.view;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +22,7 @@ import com.example.workout.R;
 import com.example.workout.interfaces.IAddNewWorkoutPresenter;
 import com.example.workout.interfaces.IAddNewWorkoutView;
 import com.example.workout.presenter.AddNewWorkoutPresenter;
+import com.example.workout.util.FragmentNavigation;
 import com.example.workout.util.GlobalValues;
 import com.example.workout.util.Util;
 import com.google.android.material.snackbar.Snackbar;
@@ -38,6 +39,7 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
     private Button addButton;
     private ImageView selectedImageView;
     private IAddNewWorkoutPresenter addNewWorkoutPresenter;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -59,17 +61,23 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
         this.takePhotoImageButton = view.findViewById(R.id.add_workout_take_photo_imageButton);
         this.selectedImageView = view.findViewById(R.id.uploaded_image_imageView);
         this.photoTextView = view.findViewById(R.id.add_workout_upload_photo_imageButton_textView);
+        this.progressBar = view.findViewById(R.id.progressBar);
         this.addNewWorkoutPresenter = new AddNewWorkoutPresenter(this);
     }
 
     private void setOnClickListeners() {
         this.calendarImageButton.setOnClickListener(v -> this.pickDate());
 
-        this.addButton.setOnClickListener(v -> addNewWorkoutPresenter.handleAddNewWorkout(
-                workoutNameEditText.getText().toString(),
-                burnedCaloriesEditText.getText().toString(),
-                dateOfWorkoutTextView.getText().toString(),
-                durationEditText.getText().toString()));
+        this.addButton.setOnClickListener(v -> {
+            this.progressBar.setVisibility(View.VISIBLE);
+
+            addNewWorkoutPresenter.handleAddNewWorkout(
+                    workoutNameEditText.getText().toString(),
+                    burnedCaloriesEditText.getText().toString(),
+                    dateOfWorkoutTextView.getText().toString(),
+                    durationEditText.getText().toString(),
+                    selectedImageView.getContentDescription().toString());
+        });
 
         this.uploadPhotoImageButton.setOnClickListener(v -> this.pickImage());
     }
@@ -83,9 +91,8 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            Toast.makeText(getContext(), "OK", Toast.LENGTH_SHORT).show();
-        }
+        this.progressBar.setVisibility(View.VISIBLE);
+        this.addNewWorkoutPresenter.handlePickPhoto(requestCode, resultCode, data);
     }
 
     private void pickDate() {
@@ -103,12 +110,25 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
     }
 
     @Override
-    public void updateUI() {
+    public void updateUI(Uri imageUri) {
+        this.progressBar.setVisibility(View.INVISIBLE);
+        this.photoTextView.setVisibility(View.GONE);
+        this.selectedImageView.setImageURI(imageUri);
+        this.selectedImageView.setVisibility(View.VISIBLE);
+        this.selectedImageView.setContentDescription(imageUri.toString());
+        Util.makeSnackBar(getView(), R.string.image_upload_successfully, Snackbar.LENGTH_SHORT, R.color.green);
+    }
+
+    @Override
+    public void success() {
+        this.progressBar.setVisibility(View.INVISIBLE);
         Util.makeSnackBar(getView(), R.string.data_added_successfully, Snackbar.LENGTH_SHORT, R.color.green);
+        FragmentNavigation.getInstance(getContext()).popBackStack();
     }
 
     @Override
     public void informUserError(int msgId) {
+        this.progressBar.setVisibility(View.INVISIBLE);
         Util.makeSnackBar(getView(), msgId, Snackbar.LENGTH_SHORT, R.color.red);
     }
 }

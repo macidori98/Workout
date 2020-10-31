@@ -18,7 +18,7 @@ public class GlobalValues {
     public static final String DB = "DB";
     public static final String DATE_PATTERN = "yyyyMMdd";
     public static final String WORKOUT_NAME = "workout_";
-    public static final String DATE_PATTERN_REGEX = "\\d{2}-\\d{2}-\\d{4}";
+    public static final String DATE_PATTERN_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";
     public static final String REGEX = "[a-zA-Z0-9]*";
     public static final String LINE = "-";
     public static final String STAR = "image/*";

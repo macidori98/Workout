@@ -45,4 +45,6 @@
     <string name="login_successful">Login successful</string>
     <string name="fail">Fail</string>
     <string name="login_fail">Login failed. Check your email and password.</string>
+    <string name="image_upload_successfully">Image choosed successfully</string>
+    <string name="fail_image_choose">Failed image choose</string>
 </resources>

@@ -1,5 +1,8 @@
 package com.example.workout.presenter;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.text.TextUtils;
 
 import com.example.workout.R;
@@ -24,7 +27,7 @@ public class AddNewWorkoutPresenter implements IAddNewWorkoutPresenter {
     }
 
     @Override
-    public void handleAddNewWorkout(String workoutName, String calories, String dateOfWorkout, String duration) {
+    public void handleAddNewWorkout(String workoutName, String calories, String dateOfWorkout, String duration, String imageUri) {
         if (TextUtils.isEmpty(workoutName)) {
             workoutName = setEmptyWorkoutName();
         }
@@ -44,8 +47,7 @@ public class AddNewWorkoutPresenter implements IAddNewWorkoutPresenter {
             return;
         }
 
-
-        Workout workout = new Workout(workoutName, calories, dateOfWorkout, Integer.parseInt(duration), getCurrentLocalDateTime());
+        Workout workout = new Workout(workoutName, calories, dateOfWorkout, Integer.parseInt(duration), getCurrentLocalDateTime(), imageUri);
 
         FirebaseDb.getInstance().insertNewWorkout(workout, this);
     }
@@ -57,7 +59,16 @@ public class AddNewWorkoutPresenter implements IAddNewWorkoutPresenter {
 
     @Override
     public void success() {
-        this.addNewWorkoutView.updateUI();
+        this.addNewWorkoutView.success();
+    }
+
+    @Override
+    public void handlePickPhoto(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            addNewWorkoutView.updateUI(data.getData());
+        } else {
+            addNewWorkoutView.informUserError(R.string.fail_image_choose);
+        }
     }
 
     private String setEmptyWorkoutName() {

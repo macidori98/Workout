@@ -1,5 +1,7 @@
 package com.example.workout.database;
 
+import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -11,6 +13,7 @@ import com.example.workout.interfaces.ISignUpPresenter;
 import com.example.workout.model.User;
 import com.example.workout.model.Workout;
 import com.example.workout.util.GlobalValues;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +26,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.Objects;
 import java.util.Random;
+import java.util.UUID;
 
 public class FirebaseDb {
     private static final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -70,9 +74,17 @@ public class FirebaseDb {
     }
 
     public void insertNewWorkout(Workout workout, IAddNewWorkoutPresenter addNewWorkoutPresenter) {
+        if (TextUtils.isEmpty(workout.getPhotoUri())) {
+            insertWorkout(workout, addNewWorkoutPresenter);
+        } else {
+            uploadPhoto(workout, addNewWorkoutPresenter);
+        }
+    }
+
+    private void insertWorkout(Workout workout, IAddNewWorkoutPresenter addNewWorkoutPresenter) {
         databaseReference = database.getReference(GlobalValues.WORKOUT);
         String id = databaseReference.push().getKey();
-        databaseReference.child(GlobalValues.CURRENT_SESSION).child(id).setValue(workout).addOnCompleteListener(task -> {
+        databaseReference.child(GlobalValues.CURRENT_SESSION).child(Objects.requireNonNull(id)).setValue(workout).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 addNewWorkoutPresenter.success();
             } else {
@@ -81,8 +93,16 @@ public class FirebaseDb {
         });
     }
 
-    private void uploadPhoto(String filePath) {
-        StorageReference mStorageRef = FirebaseStorage.getInstance().getReference().child("images/");
+    private void uploadPhoto(Workout workout, IAddNewWorkoutPresenter addNewWorkoutPresenter) {
+        StorageReference mStorageRef = FirebaseStorage.getInstance().getReference().child("images/"+ UUID.randomUUID().toString());
+        Uri uri = Uri.parse(workout.getPhotoUri());
+        mStorageRef.putFile(uri).addOnCompleteListener(task -> {
+            Task<Uri> result = Objects.requireNonNull(task.getResult()).getStorage().getDownloadUrl();
+            result.addOnCompleteListener(task1 -> {
+                workout.setPhotoUri(Objects.requireNonNull(result.getResult()).toString());
+                insertWorkout(workout, addNewWorkoutPresenter);
+            });
+        });
     }
 
     private void insertUser(String email, String username, ISignUpPresenter signUpPresenter) {
@@ -120,9 +140,9 @@ public class FirebaseDb {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snap : snapshot.getChildren()) {
-                    String email = snap.child(GlobalValues.EMAIL).getValue().toString();
+                    String email = Objects.requireNonNull(snap.child(GlobalValues.EMAIL).getValue()).toString();
                     if (email.equals(firebaseUserEmail)) {
-                        GlobalValues.CURRENT_SESSION = snap.child(GlobalValues.USERNAME).getValue().toString();
+                        GlobalValues.CURRENT_SESSION = Objects.requireNonNull(snap.child(GlobalValues.USERNAME).getValue()).toString();
                         break;
                     }
                 }

@@ -6,7 +6,7 @@ public class Workout {
     private final String dateOfWorkout;
     private final int minutes;
     private final String addedDate;
-    private final String photoUri;
+    private String photoUri;
 
     public Workout(String workoutName, String burnedCalories, String dateOfWorkout, int minutes, String addedDate, String photoUri) {
         this.workoutName = workoutName;
@@ -24,6 +24,14 @@ public class Workout {
         this.minutes = minutes;
         this.addedDate = addedDate;
         this.photoUri = "";
+    }
+
+    public String getPhotoUri() {
+        return photoUri;
+    }
+
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
     }
 
     public String getWorkoutName() {
@@ -45,4 +53,6 @@ public class Workout {
     public String getAddedDate() {
         return addedDate;
     }
+
+
 }
