@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.workout.R;
+import com.example.workout.interfaces.IOnItemClickListener;
 import com.example.workout.model.Workout;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -20,6 +21,7 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryAd
 
     private final List<Workout> workoutList;
     private final Context context;
+    protected IOnItemClickListener onItemClickListener;
 
     public WorkoutHistoryAdapter(List<Workout> workoutList, Context context) {
         this.workoutList = workoutList;
@@ -49,7 +51,11 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryAd
         return workoutList.size();
     }
 
-    protected static class ViewHolder extends RecyclerView.ViewHolder {
+    public void setOnClickListener(IOnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
+
+    protected class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView workoutNameTextView;
         private final TextView workoutDateTextView;
         private final CircularImageView workoutImageImageView;
@@ -60,6 +66,15 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryAd
             this.workoutDateTextView = itemView.findViewById(R.id.workout_history_recyclerview_date_textView);
             this.workoutImageImageView = itemView.findViewById(R.id.workout_history_recyclerview_image_imageView);
             this.workoutNameTextView = itemView.findViewById(R.id.workout_history_recyclerview_name_textView);
+
+            itemView.setOnClickListener(v -> {
+                if (onItemClickListener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        onItemClickListener.onItemClick(position);
+                    }
+                }
+            });
         }
     }
 }

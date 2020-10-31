@@ -14,6 +14,7 @@ import com.example.workout.view.AddNewWorkoutFragment;
 import com.example.workout.view.HomeFragment;
 import com.example.workout.view.LoginFragment;
 import com.example.workout.view.SignUpFragment;
+import com.example.workout.view.WorkoutDetailsFragment;
 
 public class FragmentNavigation extends Fragment {
     private static final Handler handler = new Handler();
@@ -82,6 +83,11 @@ public class FragmentNavigation extends Fragment {
         }
 
         if (getCurrentFragment(iMainActivityFragmentContainer) instanceof SignUpFragment) {
+            popBackStack();
+            return;
+        }
+
+        if (getCurrentFragment(iMainActivityFragmentContainer) instanceof WorkoutDetailsFragment) {
             popBackStack();
             return;
         }

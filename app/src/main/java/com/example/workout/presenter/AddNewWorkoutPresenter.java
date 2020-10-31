@@ -43,7 +43,7 @@ public class AddNewWorkoutPresenter implements IAddNewWorkoutPresenter {
             return;
         }
 
-        Workout workout = new Workout(workoutName, calories, dateOfWorkout, Integer.parseInt(duration), getCurrentLocalDateTime(), imageUri);
+        Workout workout = new Workout(workoutName, calories, dateOfWorkout, Integer.parseInt(duration), getCurrentLocalDateTime(GlobalValues.DATE_PATTERN_ADD), imageUri);
 
         FirebaseDb.getInstance().insertNewWorkout(workout, this);
     }
@@ -68,11 +68,11 @@ public class AddNewWorkoutPresenter implements IAddNewWorkoutPresenter {
     }
 
     private String setEmptyWorkoutName() {
-        return GlobalValues.WORKOUT_NAME.concat(getCurrentLocalDateTime());
+        return GlobalValues.WORKOUT_NAME.concat(getCurrentLocalDateTime(GlobalValues.DATE_PATTERN));
     }
 
-    private String getCurrentLocalDateTime() {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(GlobalValues.DATE_PATTERN);
+    private String getCurrentLocalDateTime(String pattern) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern);
         LocalDateTime now = LocalDateTime.now();
         return dateTimeFormatter.format(now);
     }

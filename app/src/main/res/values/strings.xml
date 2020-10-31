@@ -18,16 +18,11 @@
     <string name="confirm_password">Confirm password…</string>
     <string name="accept_terms_and_conditions">Accept Terms and Conditions</string>
     <string name="sign_up_successful">You have signed up successfully</string>
-    <string name="check_terms">You have to accept Terms and Conditions</string>
-    <string name="passwords_dont_match">Inserted passwords do not match</string>
-    <string name="password_length">Your password has to contain at least 6 characters</string>
-    <string name="invalid_email">Invalid email</string>
-    <string name="username_length">Your username has to contain at least 4 characters</string>
-    <string name="username_fail">Your username should contain only alphabetical and numeric characters</string>
 
     <!--Workout history-->
     <string name="log_out">Log out</string>
     <string name="add">Add</string>
+    <string name="logout_success">Logout successfully</string>
 
     <!--Add new workout-->
     <string name="add_new_workout">Add new workout</string>
@@ -39,15 +34,29 @@
     <string name="data_adding_fail">Failed to add workout</string>
     <string name="empty" />
     <string name="upload_photo_or_take">Upload or take photo</string>
+    <string name="image_upload_successfully">Image chose successfully</string>
+    <string name="details">Workout details</string>
+    <string name="workout_image">workout image</string>
+
+    <!--Details-->
+    <string name="workout_name">Workout name</string>
+    <string name="burned_calories">Burned calories</string>
+    <string name="duration">Duration</string>
+    <string name="date_of_workout">Date of workout</string>
+    <string name="add_date">Add date</string>
 
     <!--Error messages-->
     <string name="check_email_and_password">Check your email and password</string>
     <string name="login_successful">Login successful</string>
     <string name="fail">Fail</string>
     <string name="login_fail">Login failed. Check your email and password.</string>
-    <string name="image_upload_successfully">Image choosed successfully</string>
     <string name="fail_image_choose">Failed image choose</string>
-    <string name="details">Workout details</string>
-    <string name="workout_image">workout image</string>
-    <string name="logout_success">Logout successfully</string>
+    <string name="check_terms">You have to accept Terms and Conditions</string>
+    <string name="passwords_dont_match">Inserted passwords do not match</string>
+    <string name="password_length">Your password has to contain at least 6 characters</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="username_length">Your username has to contain at least 4 characters</string>
+    <string name="username_fail">Your username should contain only alphabetical and numeric characters</string>
+
+
 </resources>

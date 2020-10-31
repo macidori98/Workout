@@ -69,23 +69,4 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/more_information_imageButton"
-        android:layout_width="@dimen/dp30"
-        android:layout_height="@dimen/dp30"
-        android:layout_marginTop="@dimen/dp5"
-        android:layout_marginEnd="@dimen/dp20"
-        android:backgroundTint="@android:color/transparent"
-        android:clickable="true"
-        android:contentDescription="@string/details"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:paddingStart="@dimen/dp5"
-        android:paddingEnd="@dimen/dp5"
-        android:paddingBottom="@dimen/dp5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/menu"
-        app:tint="@color/colorText" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

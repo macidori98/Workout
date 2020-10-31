@@ -10,6 +10,7 @@ import com.example.workout.model.Workout;
 import com.example.workout.util.GlobalValues;
 import com.example.workout.util.Util;
 
+import java.util.Collections;
 import java.util.List;
 
 public class HomePresenter implements IHomePresenter {
@@ -27,6 +28,7 @@ public class HomePresenter implements IHomePresenter {
 
     @Override
     public void sendDataList(List<Workout> workoutList) {
+        Collections.reverse(workoutList);
         this.homeView.updateUI(workoutList);
     }
 
