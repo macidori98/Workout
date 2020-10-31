@@ -16,6 +16,7 @@ public class GlobalValues {
     public static final String USERNAME = "username";
     public static final String EMAIL = "email";
     public static final String DB = "DB";
+    public static final String IMAGE = "images/";
     public static final String DATE_PATTERN = "yyyyMMdd";
     public static final String WORKOUT_NAME = "workout_";
     public static final String DATE_PATTERN_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";

@@ -1,6 +1,7 @@
 package com.example.workout.database;
 
 import android.net.Uri;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -94,7 +95,7 @@ public class FirebaseDb {
     }
 
     private void uploadPhoto(Workout workout, IAddNewWorkoutPresenter addNewWorkoutPresenter) {
-        StorageReference mStorageRef = FirebaseStorage.getInstance().getReference().child("images/"+ UUID.randomUUID().toString());
+        StorageReference mStorageRef = FirebaseStorage.getInstance().getReference().child(GlobalValues.IMAGE + UUID.randomUUID().toString());
         Uri uri = Uri.parse(workout.getPhotoUri());
         mStorageRef.putFile(uri).addOnCompleteListener(task -> {
             Task<Uri> result = Objects.requireNonNull(task.getResult()).getStorage().getDownloadUrl();
