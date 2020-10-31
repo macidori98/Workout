@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +27,7 @@ public class SignUpFragment extends Fragment implements ISignUpView {
     private CheckBox termsCheckBox;
     private Button signUpButton;
     private ISignUpPresenter signUpPresenter;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -43,28 +45,34 @@ public class SignUpFragment extends Fragment implements ISignUpView {
         this.usernameEditText = view.findViewById(R.id.signup_username_editText);
         this.termsCheckBox = view.findViewById(R.id.signup_checkbox);
         this.signUpButton = view.findViewById(R.id.signup_button);
-
+        this.progressBar = view.findViewById(R.id.progressBar);
         this.signUpPresenter = new SignUpPresenter(this);
     }
 
     private void setOnClickListeners() {
-        this.signUpButton.setOnClickListener(v -> this.signUpPresenter.handleSignUp(
-                this.emailEditText.getText().toString(),
-                this.usernameEditText.getText().toString(),
-                this.passwordEditText.getText().toString(),
-                this.confirmPasswordEditText.getText().toString(),
-                this.termsCheckBox
-        ));
+        this.signUpButton.setOnClickListener(v -> {
+            progressBar.setVisibility(View.VISIBLE);
+            this.signUpPresenter.handleSignUp(
+                    this.emailEditText.getText().toString(),
+                    this.usernameEditText.getText().toString(),
+                    this.passwordEditText.getText().toString(),
+                    this.confirmPasswordEditText.getText().toString(),
+                    this.termsCheckBox,
+                    getContext()
+            );
+        });
     }
 
     @Override
     public void informUserError(int msgId) {
+        progressBar.setVisibility(View.INVISIBLE);
         Util.makeSnackBar(getView(), msgId, Snackbar.LENGTH_SHORT, R.color.red);
     }
 
 
     @Override
     public void signUpSuccess() {
+        progressBar.setVisibility(View.INVISIBLE);
         FragmentNavigation.getInstance(getContext()).replaceFragment(new HomeFragment(), R.id.fragment_content);
         Util.makeSnackBar(getView(), R.string.sign_up_successful, Snackbar.LENGTH_SHORT, R.color.green);
     }

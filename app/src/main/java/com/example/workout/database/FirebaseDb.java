@@ -15,6 +15,7 @@ import com.example.workout.interfaces.ISignUpPresenter;
 import com.example.workout.model.User;
 import com.example.workout.model.Workout;
 import com.example.workout.util.GlobalValues;
+import com.example.workout.util.Util;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -60,10 +61,11 @@ public class FirebaseDb {
         });
     }
 
-    public void createUser(String email, String password, String username, ISignUpPresenter signUpPresenter) {
+    public void createUser(String email, String password, String username, ISignUpPresenter signUpPresenter, Context context) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                this.insertUser(email, username, signUpPresenter);
+                firebaseUser = firebaseAuth.getCurrentUser();
+                this.insertUser(email, username, signUpPresenter, context);
             } else {
                 signUpPresenter.failure(R.string.user_already_exists);
             }
@@ -102,16 +104,16 @@ public class FirebaseDb {
         });
     }
 
-    private void insertUser(String email, String username, ISignUpPresenter signUpPresenter) {
+    private void insertUser(String email, String username, ISignUpPresenter signUpPresenter, Context context) {
         databaseReference = database.getReference(GlobalValues.USERS);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.hasChild(username)) {
                     String usernameNew = username.concat(String.valueOf(new Random().nextInt(GlobalValues.MAX_RANDOM_VALUE)));
-                    insert(new User(email, usernameNew), signUpPresenter);
+                    insert(new User(email, usernameNew), signUpPresenter, context);
                 } else {
-                    insert(new User(email, username), signUpPresenter);
+                    insert(new User(email, username), signUpPresenter, context);
                 }
             }
 
@@ -122,9 +124,10 @@ public class FirebaseDb {
         });
     }
 
-    private void insert(User user, ISignUpPresenter signUpPresenter) {
+    private void insert(User user, ISignUpPresenter signUpPresenter, Context context) {
         databaseReference.child(user.getUsername()).setValue(user).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
+                Util.setSharedPref(context, user.getUsername());
                 signUpPresenter.success();
             }
         });
@@ -160,14 +163,17 @@ public class FirebaseDb {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Workout> workoutList = new ArrayList<>();
-                for (DataSnapshot snap: snapshot.getChildren()) {
-                    String workoutName = Objects.requireNonNull(snap.child("workoutName").getValue()).toString();
-                    String burnedCalories = Objects.requireNonNull(snap.child("burnedCalories").getValue()).toString();
-                    String dateOfWorkout= Objects.requireNonNull(snap.child("dateOfWorkout").getValue()).toString();
-                    int minutes= Integer.parseInt(Objects.requireNonNull(snap.child("minutes").getValue()).toString());
-                    String addedDate= Objects.requireNonNull(snap.child("addedDate").getValue()).toString();
-                    String photoUri= Objects.requireNonNull(snap.child("photoUri").getValue()).toString();
-                    workoutList.add(new Workout(workoutName, burnedCalories, dateOfWorkout, minutes, addedDate, photoUri));
+
+                if (snapshot.getValue() != null) {
+                    for (DataSnapshot snap: snapshot.getChildren()) {
+                        String workoutName = Objects.requireNonNull(snap.child("workoutName").getValue()).toString();
+                        String burnedCalories = Objects.requireNonNull(snap.child("burnedCalories").getValue()).toString();
+                        String dateOfWorkout= Objects.requireNonNull(snap.child("dateOfWorkout").getValue()).toString();
+                        int minutes= Integer.parseInt(Objects.requireNonNull(snap.child("minutes").getValue()).toString());
+                        String addedDate= Objects.requireNonNull(snap.child("addedDate").getValue()).toString();
+                        String photoUri= Objects.requireNonNull(snap.child("photoUri").getValue()).toString();
+                        workoutList.add(new Workout(workoutName, burnedCalories, dateOfWorkout, minutes, addedDate, photoUri));
+                    }
                 }
 
                 homePresenter.sendDataList(workoutList);

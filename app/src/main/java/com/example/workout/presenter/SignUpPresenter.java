@@ -1,5 +1,6 @@
 package com.example.workout.presenter;
 
+import android.content.Context;
 import android.widget.CheckBox;
 
 import com.example.workout.R;
@@ -20,7 +21,7 @@ public class SignUpPresenter implements ISignUpPresenter {
     }
 
     @Override
-    public void handleSignUp(String email, String username, String password, String confirmPassword, CheckBox terms) {
+    public void handleSignUp(String email, String username, String password, String confirmPassword, CheckBox terms, Context context) {
         if (!terms.isChecked()) {
             this.signUpView.informUserError(R.string.check_terms);
             return;
@@ -51,7 +52,7 @@ public class SignUpPresenter implements ISignUpPresenter {
             return;
         }
 
-        FirebaseDb.getInstance().createUser(email, password, username, this);
+        FirebaseDb.getInstance().createUser(email, password, username, this, context);
     }
 
     private boolean correctUsername(String username) {
