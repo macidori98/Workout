@@ -1,9 +1,12 @@
 package com.example.workout.view;
 
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +30,12 @@ import com.example.workout.util.GlobalValues;
 import com.example.workout.util.Util;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.File;
 import java.util.Calendar;
 
 public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutView {
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     private EditText workoutNameEditText, burnedCaloriesEditText, durationEditText;
     private TextView dateOfWorkoutTextView, photoTextView;
     private ImageButton calendarImageButton, uploadPhotoImageButton, takePhotoImageButton;
@@ -38,6 +43,8 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
     private ImageView selectedImageView;
     private IAddNewWorkoutPresenter addNewWorkoutPresenter;
     private ProgressBar progressBar;
+    private String photoPath;
+
 
     @Nullable
     @Override
@@ -77,6 +84,19 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
                     selectedImageView.getContentDescription().toString());
         });
 
+        this.takePhotoImageButton.setOnClickListener(v -> {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Images.Media.TITLE, "New Picture");
+                values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
+                Uri mImageUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        });
+
         this.uploadPhotoImageButton.setOnClickListener(v -> this.pickImage());
     }
 
@@ -89,8 +109,31 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        this.progressBar.setVisibility(View.VISIBLE);
-        this.addNewWorkoutPresenter.handlePickPhoto(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == -1) {
+            if (data != null) {
+                photoPath = String.valueOf(data.getData());
+            }
+
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+            Cursor cursor = getContext().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, filePathColumn, null, null, null);
+            if (cursor == null) {
+                return;
+            }
+            cursor.moveToLast();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String filePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            updateUI(Uri.fromFile(new File(filePath)));
+
+        }
+        if (requestCode == 2 && resultCode == -1) {
+            this.progressBar.setVisibility(View.VISIBLE);
+            this.addNewWorkoutPresenter.handlePhoto(requestCode, resultCode, data);
+        }
+
     }
 
     private void pickDate() {

@@ -8,7 +8,7 @@ public class GlobalValues {
     public static final int SPLASHSCREEN_LENGTH = 1500;
     public static final int MAX_RANDOM_VALUE = 10000;
     public static final int STORAGE_PERMISSION_CODE = 1;
-    public static final int REQUEST_CODE = 1;
+    public static final int REQUEST_CODE = 2;
 
     public static final String USERS = "users";
     public static final String WORKOUT = "workout";
@@ -39,10 +39,9 @@ public class GlobalValues {
     };
 
     public static final String[] PERMISSIONS = {
-            android.Manifest.permission.READ_CONTACTS,
-            android.Manifest.permission.WRITE_CONTACTS,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
     };
     public static final String HELLO = "Hello, ";
 

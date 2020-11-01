@@ -59,7 +59,7 @@ public class AddNewWorkoutPresenter implements IAddNewWorkoutPresenter {
     }
 
     @Override
-    public void handlePickPhoto(int requestCode, int resultCode, Intent data) {
+    public void handlePhoto(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
             addNewWorkoutView.updateUI(data.getData());
         } else {
