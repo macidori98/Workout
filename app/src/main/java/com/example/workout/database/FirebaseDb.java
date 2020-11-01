@@ -80,6 +80,40 @@ public class FirebaseDb {
         }
     }
 
+    public void getWorkoutHistory(IHomePresenter homePresenter) {
+        databaseReference = database.getReference(GlobalValues.WORKOUT).child(GlobalValues.CURRENT_SESSION);
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Workout> workoutList = new ArrayList<>();
+
+                if (snapshot.hasChildren()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
+                        String workoutName = Objects.requireNonNull(snap.child(GlobalValues.WORKOUT_NAME_).getValue()).toString();
+                        String burnedCalories = Objects.requireNonNull(snap.child(GlobalValues.BURNED_CALORIES).getValue()).toString();
+                        String dateOfWorkout = Objects.requireNonNull(snap.child(GlobalValues.DATE_OF_WORKOUT).getValue()).toString();
+                        int minutes = Integer.parseInt(Objects.requireNonNull(snap.child(GlobalValues.MINUTES).getValue()).toString());
+                        String addedDate = Objects.requireNonNull(snap.child(GlobalValues.ADDED_DATE).getValue()).toString();
+                        String photoUri = Objects.requireNonNull(snap.child(GlobalValues.PHOTO_URI).getValue()).toString();
+                        workoutList.add(new Workout(workoutName, burnedCalories, dateOfWorkout, minutes, addedDate, photoUri));
+                    }
+                }
+
+                homePresenter.sendDataList(workoutList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d(GlobalValues.DB, GlobalValues.DB);
+            }
+        });
+    }
+
+    public void logout(IHomePresenter homePresenter) {
+        firebaseAuth.signOut();
+        homePresenter.logoutSuccess();
+    }
+
     private void insertWorkout(Workout workout, IAddNewWorkoutPresenter addNewWorkoutPresenter) {
         databaseReference = database.getReference(GlobalValues.WORKOUT);
         String id = databaseReference.push().getKey();
@@ -156,39 +190,5 @@ public class FirebaseDb {
                 Log.d(GlobalValues.DB, error.toString());
             }
         });
-    }
-
-    public void getWorkoutHistory(IHomePresenter homePresenter) {
-        databaseReference = database.getReference(GlobalValues.WORKOUT).child(GlobalValues.CURRENT_SESSION);
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Workout> workoutList = new ArrayList<>();
-
-                if (snapshot.hasChildren()) {
-                    for (DataSnapshot snap : snapshot.getChildren()) {
-                        String workoutName = Objects.requireNonNull(snap.child(GlobalValues.WORKOUT_NAME_).getValue()).toString();
-                        String burnedCalories = Objects.requireNonNull(snap.child(GlobalValues.BURNED_CALORIES).getValue()).toString();
-                        String dateOfWorkout = Objects.requireNonNull(snap.child(GlobalValues.DATE_OF_WORKOUT).getValue()).toString();
-                        int minutes = Integer.parseInt(Objects.requireNonNull(snap.child(GlobalValues.MINUTES).getValue()).toString());
-                        String addedDate = Objects.requireNonNull(snap.child(GlobalValues.ADDED_DATE).getValue()).toString();
-                        String photoUri = Objects.requireNonNull(snap.child(GlobalValues.PHOTO_URI).getValue()).toString();
-                        workoutList.add(new Workout(workoutName, burnedCalories, dateOfWorkout, minutes, addedDate, photoUri));
-                    }
-                }
-
-                homePresenter.sendDataList(workoutList);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.d(GlobalValues.DB, GlobalValues.DB);
-            }
-        });
-    }
-
-    public void logout(IHomePresenter homePresenter) {
-        firebaseAuth.signOut();
-        homePresenter.logoutSuccess();
     }
 }

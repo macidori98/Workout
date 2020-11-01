@@ -52,6 +52,43 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
         return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        this.progressBar.setVisibility(View.VISIBLE);
+        this.addNewWorkoutPresenter.handlePhoto(requestCode, resultCode, data, getContext());
+    }
+
+    @Override
+    public void updateUI(Uri imageUri) {
+        this.progressBar.setVisibility(View.INVISIBLE);
+        this.photoTextView.setVisibility(View.GONE);
+        this.selectedImageView.setImageURI(imageUri);
+        this.selectedImageView.setVisibility(View.VISIBLE);
+        this.selectedImageView.setContentDescription(imageUri.toString());
+
+        Util.makeSnackBar(getView(), R.string.image_upload_successfully, Snackbar.LENGTH_SHORT, R.color.green);
+    }
+
+    @Override
+    public void success() {
+        this.progressBar.setVisibility(View.INVISIBLE);
+        Util.makeSnackBar(getView(), R.string.data_added_successfully, Snackbar.LENGTH_SHORT, R.color.green);
+
+        FragmentNavigation.getInstance(getContext()).popBackStack();
+    }
+
+    @Override
+    public void startTakePhoto(Intent intent) {
+        startActivityForResult(intent, GlobalValues.REQUEST_CODE_IMAGE_CAPTURE);
+    }
+
+    @Override
+    public void informUserError(int msgId) {
+        this.progressBar.setVisibility(View.INVISIBLE);
+
+        Util.makeSnackBar(getView(), msgId, Snackbar.LENGTH_SHORT, R.color.red);
+    }
+
     private void initializeElements(View view) {
         this.addButton = view.findViewById(R.id.add_new_workout_button);
         this.burnedCaloriesEditText = view.findViewById(R.id.add_workout_calories_editText);
@@ -99,12 +136,6 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
         startActivityForResult(intent, GlobalValues.REQUEST_CODE_PICK_PHOTO);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        this.progressBar.setVisibility(View.VISIBLE);
-        this.addNewWorkoutPresenter.handlePhoto(requestCode, resultCode, data, getContext());
-    }
-
     private void pickDate() {
         Calendar mCalender = Calendar.getInstance();
         int year = mCalender.get(Calendar.YEAR);
@@ -117,36 +148,5 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
                     dateOfWorkoutTextView.setText(date);
                 }, year, month, dayOfMonth);
         datePickerDialog.show();
-    }
-
-    @Override
-    public void updateUI(Uri imageUri) {
-        this.progressBar.setVisibility(View.INVISIBLE);
-        this.photoTextView.setVisibility(View.GONE);
-        this.selectedImageView.setImageURI(imageUri);
-        this.selectedImageView.setVisibility(View.VISIBLE);
-        this.selectedImageView.setContentDescription(imageUri.toString());
-
-        Util.makeSnackBar(getView(), R.string.image_upload_successfully, Snackbar.LENGTH_SHORT, R.color.green);
-    }
-
-    @Override
-    public void success() {
-        this.progressBar.setVisibility(View.INVISIBLE);
-        Util.makeSnackBar(getView(), R.string.data_added_successfully, Snackbar.LENGTH_SHORT, R.color.green);
-
-        FragmentNavigation.getInstance(getContext()).popBackStack();
-    }
-
-    @Override
-    public void startTakePhoto(Intent intent) {
-        startActivityForResult(intent, GlobalValues.REQUEST_CODE_IMAGE_CAPTURE);
-    }
-
-    @Override
-    public void informUserError(int msgId) {
-        this.progressBar.setVisibility(View.INVISIBLE);
-
-        Util.makeSnackBar(getView(), msgId, Snackbar.LENGTH_SHORT, R.color.red);
     }
 }

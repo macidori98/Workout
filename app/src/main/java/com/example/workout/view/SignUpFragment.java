@@ -38,6 +38,19 @@ public class SignUpFragment extends Fragment implements ISignUpView {
         return view;
     }
 
+    @Override
+    public void informUserError(int msgId) {
+        this.progressBar.setVisibility(View.INVISIBLE);
+        Util.makeSnackBar(getView(), msgId, Snackbar.LENGTH_SHORT, R.color.red);
+    }
+
+    @Override
+    public void signUpSuccess() {
+        this.progressBar.setVisibility(View.INVISIBLE);
+        FragmentNavigation.getInstance(getContext()).replaceFragment(new HomeFragment(), R.id.fragment_content);
+        Util.makeSnackBar(getView(), R.string.sign_up_successful, Snackbar.LENGTH_SHORT, R.color.green);
+    }
+
     private void initializeElements(View view) {
         this.emailEditText = view.findViewById(R.id.signup_email_editText);
         this.confirmPasswordEditText = view.findViewById(R.id.signup_confirm_password_editText);
@@ -62,18 +75,5 @@ public class SignUpFragment extends Fragment implements ISignUpView {
                     getContext()
             );
         });
-    }
-
-    @Override
-    public void informUserError(int msgId) {
-        this.progressBar.setVisibility(View.INVISIBLE);
-        Util.makeSnackBar(getView(), msgId, Snackbar.LENGTH_SHORT, R.color.red);
-    }
-
-    @Override
-    public void signUpSuccess() {
-        this.progressBar.setVisibility(View.INVISIBLE);
-        FragmentNavigation.getInstance(getContext()).replaceFragment(new HomeFragment(), R.id.fragment_content);
-        Util.makeSnackBar(getView(), R.string.sign_up_successful, Snackbar.LENGTH_SHORT, R.color.green);
     }
 }

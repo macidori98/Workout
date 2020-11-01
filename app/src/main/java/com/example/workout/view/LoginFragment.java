@@ -37,6 +37,17 @@ public class LoginFragment extends Fragment implements ILoginView {
         return view;
     }
 
+    @Override
+    public void loginOnSuccess() {
+        FragmentNavigation.getInstance(getContext()).replaceFragment(new HomeFragment(), R.id.fragment_content);
+        Util.makeSnackBar(getView(), R.string.login_successful, Snackbar.LENGTH_SHORT, R.color.green);
+    }
+
+    @Override
+    public void informUserError(int msgId) {
+        Util.makeSnackBar(getView(), msgId, Snackbar.LENGTH_SHORT, R.color.red);
+    }
+
     private void initializeElements(View view) {
         this.emailEditText = view.findViewById(R.id.login_email_editText);
         this.passwordEditText = view.findViewById(R.id.login_password_editText);
@@ -55,16 +66,5 @@ public class LoginFragment extends Fragment implements ILoginView {
     private void login() {
         this.loginPresenter.handleLogin(this.emailEditText.getText().toString(),
                 this.passwordEditText.getText().toString(), getContext());
-    }
-
-    @Override
-    public void loginOnSuccess() {
-        FragmentNavigation.getInstance(getContext()).replaceFragment(new HomeFragment(), R.id.fragment_content);
-        Util.makeSnackBar(getView(), R.string.login_successful, Snackbar.LENGTH_SHORT, R.color.green);
-    }
-
-    @Override
-    public void informUserError(int msgId) {
-        Util.makeSnackBar(getView(), msgId, Snackbar.LENGTH_SHORT, R.color.red);
     }
 }

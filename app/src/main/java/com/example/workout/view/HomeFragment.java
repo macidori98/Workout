@@ -49,24 +49,6 @@ public class HomeFragment extends Fragment implements IHomeView {
         return view;
     }
 
-    private void initializeElements(View view) {
-        this.addFloatingActionButton = view.findViewById(R.id.add_new_workout_floatingActionButton);
-        this.workoutHistoryRecyclerView = view.findViewById(R.id.workout_history_recyclerview);
-        this.logoutImageButton = view.findViewById(R.id.logout_imageButton);
-        this.progressBar = view.findViewById(R.id.progressBar);
-        this.helloUserTextView = view.findViewById(R.id.hello_user_TextView);
-        this.progressBar.setVisibility(View.VISIBLE);
-        this.homePresenter = new HomePresenter(this);
-    }
-
-    private void setListeners() {
-        this.logoutImageButton.setOnClickListener(v -> homePresenter.handleLogout(getContext()));
-
-        this.addFloatingActionButton.setOnClickListener(v -> FragmentNavigation.getInstance(getContext()).replaceFragment(new AddNewWorkoutFragment(), R.id.fragment_content));
-
-        this.homePresenter.handleDataDownload();
-    }
-
     @Override
     public void informUserError(int msgId) {
         Util.makeSnackBar(getView(), msgId, Snackbar.LENGTH_SHORT, R.color.red);
@@ -94,5 +76,23 @@ public class HomeFragment extends Fragment implements IHomeView {
     public void logout(int msgId) {
         Util.makeSnackBar(getView(), msgId, Snackbar.LENGTH_SHORT, R.color.green);
         FragmentNavigation.getInstance(getContext()).replaceFragment(new LoginFragment(), R.id.fragment_content);
+    }
+
+    private void initializeElements(View view) {
+        this.addFloatingActionButton = view.findViewById(R.id.add_new_workout_floatingActionButton);
+        this.workoutHistoryRecyclerView = view.findViewById(R.id.workout_history_recyclerview);
+        this.logoutImageButton = view.findViewById(R.id.logout_imageButton);
+        this.progressBar = view.findViewById(R.id.progressBar);
+        this.helloUserTextView = view.findViewById(R.id.hello_user_TextView);
+        this.progressBar.setVisibility(View.VISIBLE);
+        this.homePresenter = new HomePresenter(this);
+    }
+
+    private void setListeners() {
+        this.logoutImageButton.setOnClickListener(v -> homePresenter.handleLogout(getContext()));
+
+        this.addFloatingActionButton.setOnClickListener(v -> FragmentNavigation.getInstance(getContext()).replaceFragment(new AddNewWorkoutFragment(), R.id.fragment_content));
+
+        this.homePresenter.handleDataDownload();
     }
 }

@@ -59,6 +59,4 @@ public class WorkoutDetailsFragment extends Fragment {
                 .placeholder(R.mipmap.ic_launcher)
                 .into(workoutImageView);
     }
-
-
 }

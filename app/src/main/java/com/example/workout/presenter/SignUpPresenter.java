@@ -55,12 +55,6 @@ public class SignUpPresenter implements ISignUpPresenter {
         FirebaseDb.getInstance().createUser(email, password, username, this, context);
     }
 
-    private boolean correctUsername(String username) {
-        Pattern pattern = Pattern.compile(GlobalValues.REGEX);
-        Matcher matcher = pattern.matcher(username);
-        return matcher.matches();
-    }
-
     @Override
     public void failure(int msgId) {
         this.signUpView.informUserError(msgId);
@@ -69,6 +63,12 @@ public class SignUpPresenter implements ISignUpPresenter {
     @Override
     public void success() {
         this.signUpView.signUpSuccess();
+    }
+
+    private boolean correctUsername(String username) {
+        Pattern pattern = Pattern.compile(GlobalValues.REGEX);
+        Matcher matcher = pattern.matcher(username);
+        return matcher.matches();
     }
 
     private boolean passwordsMatch(String password, String confirmPassword) {
