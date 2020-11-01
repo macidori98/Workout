@@ -128,6 +128,7 @@ public class FirebaseDb {
         databaseReference.child(user.getUsername()).setValue(user).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Util.setSharedPref(context, user.getUsername());
+                GlobalValues.CURRENT_SESSION = user.getUsername();
                 signUpPresenter.success();
             }
         });
@@ -164,7 +165,7 @@ public class FirebaseDb {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Workout> workoutList = new ArrayList<>();
 
-                if (snapshot.getValue() != null) {
+                if (snapshot.hasChildren()) {
                     for (DataSnapshot snap : snapshot.getChildren()) {
                         String workoutName = Objects.requireNonNull(snap.child(GlobalValues.WORKOUT_NAME_).getValue()).toString();
                         String burnedCalories = Objects.requireNonNull(snap.child(GlobalValues.BURNED_CALORIES).getValue()).toString();
