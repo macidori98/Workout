@@ -56,7 +56,7 @@ public class FirebaseDb {
                 firebaseUser = Objects.requireNonNull(task.getResult()).getUser();
                 this.setCurrentSession(loginPresenter, context);
             } else {
-                loginPresenter.loginFail();
+                loginPresenter.failure(R.string.login_fail);
             }
         });
     }
@@ -144,7 +144,7 @@ public class FirebaseDb {
                     if (email.equals(firebaseUserEmail)) {
                         GlobalValues.CURRENT_SESSION = Objects.requireNonNull(snap.child(GlobalValues.USERNAME).getValue()).toString();
                         setSharedPref(context, GlobalValues.CURRENT_SESSION);
-                        loginPresenter.loginSuccess();
+                        loginPresenter.success();
                         break;
                     }
                 }

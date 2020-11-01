@@ -27,12 +27,12 @@ public class LoginPresenter implements ILoginPresenter {
     }
 
     @Override
-    public void loginSuccess() {
+    public void success() {
         this.loginView.loginOnSuccess();
     }
 
     @Override
-    public void loginFail() {
-        this.loginView.informUserError(R.string.login_fail);
+    public void failure(int msgId) {
+        this.loginView.informUserError(msgId);
     }
 }
