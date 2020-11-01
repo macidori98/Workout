@@ -21,7 +21,7 @@ public class WorkoutDetailsFragment extends Fragment {
 
     private TextView nameTextView, caloriesTextView, durationTextView, dateOfWorkoutTextView, addDateTextView;
     private ImageView workoutImageView;
-    private Workout workout;
+    private final Workout workout;
 
     public WorkoutDetailsFragment(Workout workout) {
         this.workout = workout;
@@ -53,6 +53,7 @@ public class WorkoutDetailsFragment extends Fragment {
         this.caloriesTextView.setText(this.workout.getBurnedCalories());
         this.durationTextView.setText(String.valueOf(this.workout.getMinutes()));
         this.nameTextView.setText(this.workout.getWorkoutName());
+
         Glide.with(Objects.requireNonNull(getContext()))
                 .load(workout.getPhotoUri())
                 .placeholder(R.mipmap.ic_launcher)

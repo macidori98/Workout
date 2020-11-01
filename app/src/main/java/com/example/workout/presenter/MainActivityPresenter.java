@@ -38,7 +38,7 @@ public class MainActivityPresenter implements IMainActivityPresenter {
     }
 
     private void delaying(Fragment fragment) {
-        new Handler().postDelayed(() -> mainActivityView.showFragment(fragment), 1500);
+        new Handler().postDelayed(() -> this.mainActivityView.showFragment(fragment), GlobalValues.SPLASHSCREEN_LENGTH);
     }
 
     private boolean isLoggedInUser(Context context) {

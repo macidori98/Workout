@@ -105,7 +105,7 @@ public class FragmentNavigation extends Fragment {
 
         bDoubleBackToExitPressedOnce = true;
         Toast.makeText(activity, R.string.back_button_press, Toast.LENGTH_SHORT).show();
-        handler.postDelayed(() -> bDoubleBackToExitPressedOnce = false, 2000);
+        handler.postDelayed(() -> bDoubleBackToExitPressedOnce = false, GlobalValues.DELAY_LENGTH);
     }
 
     public void popBackStack() {

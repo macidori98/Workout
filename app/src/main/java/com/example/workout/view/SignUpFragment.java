@@ -46,12 +46,13 @@ public class SignUpFragment extends Fragment implements ISignUpView {
         this.termsCheckBox = view.findViewById(R.id.signup_checkbox);
         this.signUpButton = view.findViewById(R.id.signup_button);
         this.progressBar = view.findViewById(R.id.progressBar);
+
         this.signUpPresenter = new SignUpPresenter(this);
     }
 
     private void setOnClickListeners() {
         this.signUpButton.setOnClickListener(v -> {
-            progressBar.setVisibility(View.VISIBLE);
+            this.progressBar.setVisibility(View.VISIBLE);
             this.signUpPresenter.handleSignUp(
                     this.emailEditText.getText().toString(),
                     this.usernameEditText.getText().toString(),
@@ -65,14 +66,13 @@ public class SignUpFragment extends Fragment implements ISignUpView {
 
     @Override
     public void informUserError(int msgId) {
-        progressBar.setVisibility(View.INVISIBLE);
+        this.progressBar.setVisibility(View.INVISIBLE);
         Util.makeSnackBar(getView(), msgId, Snackbar.LENGTH_SHORT, R.color.red);
     }
 
-
     @Override
     public void signUpSuccess() {
-        progressBar.setVisibility(View.INVISIBLE);
+        this.progressBar.setVisibility(View.INVISIBLE);
         FragmentNavigation.getInstance(getContext()).replaceFragment(new HomeFragment(), R.id.fragment_content);
         Util.makeSnackBar(getView(), R.string.sign_up_successful, Snackbar.LENGTH_SHORT, R.color.green);
     }

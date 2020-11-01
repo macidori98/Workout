@@ -6,9 +6,12 @@ public class GlobalValues {
     public static final int PASSWORD_MIN_LENGTH = 6;
     public static final int USERNAME_MIN_LENGTH = 4;
     public static final int SPLASHSCREEN_LENGTH = 1500;
+    public static final int DELAY_LENGTH = 2000;
     public static final int MAX_RANDOM_VALUE = 10000;
     public static final int STORAGE_PERMISSION_CODE = 1;
-    public static final int REQUEST_CODE = 2;
+    public static final int REQUEST_CODE_PICK_PHOTO = 2;
+    public static final int REQUEST_CODE_IMAGE_CAPTURE = 1;
+
 
     public static final String USERS = "users";
     public static final String WORKOUT = "workout";
@@ -22,6 +25,8 @@ public class GlobalValues {
     public static final String ADDED_DATE = "addedDate";
     public static final String PHOTO_URI = "photoUri";
 
+    public static final String HELLO = "Hello, ";
+    public static final String NEW_PICTURE = "New Picture";
     public static final String DB = "DB";
     public static final String IMAGE = "images/";
     public static final String DATE_PATTERN = "yyyyMMddHHmmss";
@@ -43,8 +48,6 @@ public class GlobalValues {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA
     };
-    public static final String HELLO = "Hello, ";
-
 
     public static String CURRENT_SESSION;
     public static int CHECK = 0;

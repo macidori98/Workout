@@ -40,6 +40,6 @@ public class HomePresenter implements IHomePresenter {
 
     @Override
     public void logoutSuccess() {
-        homeView.logout(R.string.logout_success);
+        this.homeView.logout(R.string.logout_success);
     }
 }

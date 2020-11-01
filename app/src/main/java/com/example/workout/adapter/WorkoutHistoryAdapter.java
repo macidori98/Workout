@@ -38,10 +38,10 @@ public class WorkoutHistoryAdapter extends RecyclerView.Adapter<WorkoutHistoryAd
 
     @Override
     public void onBindViewHolder(@NonNull WorkoutHistoryAdapter.ViewHolder holder, int position) {
-        holder.workoutNameTextView.setText(workoutList.get(position).getWorkoutName());
-        holder.workoutDateTextView.setText(workoutList.get(position).getDateOfWorkout());
+        holder.workoutNameTextView.setText(this.workoutList.get(position).getWorkoutName());
+        holder.workoutDateTextView.setText(this.workoutList.get(position).getDateOfWorkout());
         Glide.with(context)
-                .load(workoutList.get(position).getPhotoUri())
+                .load(this.workoutList.get(position).getPhotoUri())
                 .placeholder(R.mipmap.ic_launcher)
                 .into(holder.workoutImageImageView);
     }

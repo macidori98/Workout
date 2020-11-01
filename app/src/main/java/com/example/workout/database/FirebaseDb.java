@@ -165,13 +165,13 @@ public class FirebaseDb {
                 List<Workout> workoutList = new ArrayList<>();
 
                 if (snapshot.getValue() != null) {
-                    for (DataSnapshot snap: snapshot.getChildren()) {
+                    for (DataSnapshot snap : snapshot.getChildren()) {
                         String workoutName = Objects.requireNonNull(snap.child(GlobalValues.WORKOUT_NAME_).getValue()).toString();
                         String burnedCalories = Objects.requireNonNull(snap.child(GlobalValues.BURNED_CALORIES).getValue()).toString();
-                        String dateOfWorkout= Objects.requireNonNull(snap.child(GlobalValues.DATE_OF_WORKOUT).getValue()).toString();
-                        int minutes= Integer.parseInt(Objects.requireNonNull(snap.child(GlobalValues.MINUTES).getValue()).toString());
-                        String addedDate= Objects.requireNonNull(snap.child(GlobalValues.ADDED_DATE).getValue()).toString();
-                        String photoUri= Objects.requireNonNull(snap.child(GlobalValues.PHOTO_URI).getValue()).toString();
+                        String dateOfWorkout = Objects.requireNonNull(snap.child(GlobalValues.DATE_OF_WORKOUT).getValue()).toString();
+                        int minutes = Integer.parseInt(Objects.requireNonNull(snap.child(GlobalValues.MINUTES).getValue()).toString());
+                        String addedDate = Objects.requireNonNull(snap.child(GlobalValues.ADDED_DATE).getValue()).toString();
+                        String photoUri = Objects.requireNonNull(snap.child(GlobalValues.PHOTO_URI).getValue()).toString();
                         workoutList.add(new Workout(workoutName, burnedCalories, dateOfWorkout, minutes, addedDate, photoUri));
                     }
                 }

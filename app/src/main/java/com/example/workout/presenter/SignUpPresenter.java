@@ -63,12 +63,12 @@ public class SignUpPresenter implements ISignUpPresenter {
 
     @Override
     public void failure(int msgId) {
-        signUpView.informUserError(msgId);
+        this.signUpView.informUserError(msgId);
     }
 
     @Override
     public void success() {
-        signUpView.signUpSuccess();
+        this.signUpView.signUpSuccess();
     }
 
     private boolean passwordsMatch(String password, String confirmPassword) {

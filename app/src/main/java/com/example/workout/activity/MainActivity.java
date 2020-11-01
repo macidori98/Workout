@@ -34,15 +34,15 @@ public class MainActivity extends AppCompatActivity implements IMainActivityView
 
         this.initializeElements();
 
-        linearLayout.startAnimation(fromBottom);
+        this.linearLayout.startAnimation(fromBottom);
     }
 
     private void initializeElements() {
-        linearLayout = findViewById(R.id.splashScreen_linearLayout);
+        this.linearLayout = findViewById(R.id.splashScreen_linearLayout);
 
-        fromBottom = AnimationUtils.loadAnimation(this, R.anim.splash_screen_animation);
-        fromBottom.setDuration(GlobalValues.SPLASHSCREEN_LENGTH);
-        fromBottom.setAnimationListener(new Animation.AnimationListener() {
+        this.fromBottom = AnimationUtils.loadAnimation(this, R.anim.splash_screen_animation);
+        this.fromBottom.setDuration(GlobalValues.SPLASHSCREEN_LENGTH);
+        this.fromBottom.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
                 Log.d(TAG, TAG);

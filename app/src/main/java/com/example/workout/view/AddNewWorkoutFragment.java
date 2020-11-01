@@ -1,9 +1,7 @@
 package com.example.workout.view;
 
 import android.app.DatePickerDialog;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -30,12 +28,10 @@ import com.example.workout.util.GlobalValues;
 import com.example.workout.util.Util;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.File;
 import java.util.Calendar;
 
 public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutView {
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
     private EditText workoutNameEditText, burnedCaloriesEditText, durationEditText;
     private TextView dateOfWorkoutTextView, photoTextView;
     private ImageButton calendarImageButton, uploadPhotoImageButton, takePhotoImageButton;
@@ -43,15 +39,16 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
     private ImageView selectedImageView;
     private IAddNewWorkoutPresenter addNewWorkoutPresenter;
     private ProgressBar progressBar;
-    private String photoPath;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_new_workout_fragment, container, false);
+
         this.initializeElements(view);
         this.setOnClickListeners();
+
         return view;
     }
 
@@ -67,6 +64,7 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
         this.selectedImageView = view.findViewById(R.id.uploaded_image_imageView);
         this.photoTextView = view.findViewById(R.id.add_workout_upload_photo_imageButton_textView);
         this.progressBar = view.findViewById(R.id.progressBar);
+
         this.addNewWorkoutPresenter = new AddNewWorkoutPresenter(this);
     }
 
@@ -76,7 +74,7 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
         this.addButton.setOnClickListener(v -> {
             this.progressBar.setVisibility(View.VISIBLE);
 
-            addNewWorkoutPresenter.handleAddNewWorkout(
+            this.addNewWorkoutPresenter.handleAddNewWorkout(
                     workoutNameEditText.getText().toString(),
                     burnedCaloriesEditText.getText().toString(),
                     dateOfWorkoutTextView.getText().toString(),
@@ -84,56 +82,27 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
                     selectedImageView.getContentDescription().toString());
         });
 
-        this.takePhotoImageButton.setOnClickListener(v -> {
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-                ContentValues values = new ContentValues();
-                values.put(MediaStore.Images.Media.TITLE, "New Picture");
-                values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
-                Uri mImageUri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            }
-        });
+        this.takePhotoImageButton.setOnClickListener(v -> this.takeImage());
 
         this.uploadPhotoImageButton.setOnClickListener(v -> this.pickImage());
+    }
+
+    private void takeImage() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        this.addNewWorkoutPresenter.setTakePhotoIntent(takePictureIntent, getContext());
     }
 
     private void pickImage() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(GlobalValues.STAR);
         intent.putExtra(Intent.EXTRA_MIME_TYPES, GlobalValues.MIME_TYPES);
-        startActivityForResult(intent, GlobalValues.REQUEST_CODE);
+        startActivityForResult(intent, GlobalValues.REQUEST_CODE_PICK_PHOTO);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1 && resultCode == -1) {
-            if (data != null) {
-                photoPath = String.valueOf(data.getData());
-            }
-
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-            Cursor cursor = getContext().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, filePathColumn, null, null, null);
-            if (cursor == null) {
-                return;
-            }
-            cursor.moveToLast();
-
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String filePath = cursor.getString(columnIndex);
-            cursor.close();
-
-            updateUI(Uri.fromFile(new File(filePath)));
-
-        }
-        if (requestCode == 2 && resultCode == -1) {
-            this.progressBar.setVisibility(View.VISIBLE);
-            this.addNewWorkoutPresenter.handlePhoto(requestCode, resultCode, data);
-        }
-
+        this.progressBar.setVisibility(View.VISIBLE);
+        this.addNewWorkoutPresenter.handlePhoto(requestCode, resultCode, data, getContext());
     }
 
     private void pickDate() {
@@ -157,6 +126,7 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
         this.selectedImageView.setImageURI(imageUri);
         this.selectedImageView.setVisibility(View.VISIBLE);
         this.selectedImageView.setContentDescription(imageUri.toString());
+
         Util.makeSnackBar(getView(), R.string.image_upload_successfully, Snackbar.LENGTH_SHORT, R.color.green);
     }
 
@@ -164,12 +134,19 @@ public class AddNewWorkoutFragment extends Fragment implements IAddNewWorkoutVie
     public void success() {
         this.progressBar.setVisibility(View.INVISIBLE);
         Util.makeSnackBar(getView(), R.string.data_added_successfully, Snackbar.LENGTH_SHORT, R.color.green);
+
         FragmentNavigation.getInstance(getContext()).popBackStack();
+    }
+
+    @Override
+    public void startTakePhoto(Intent intent) {
+        startActivityForResult(intent, GlobalValues.REQUEST_CODE_IMAGE_CAPTURE);
     }
 
     @Override
     public void informUserError(int msgId) {
         this.progressBar.setVisibility(View.INVISIBLE);
+
         Util.makeSnackBar(getView(), msgId, Snackbar.LENGTH_SHORT, R.color.red);
     }
 }
