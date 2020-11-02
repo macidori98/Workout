@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment implements IHomeView {
     private ImageButton logoutImageButton;
     private IHomePresenter homePresenter;
     private ProgressBar progressBar;
-    private TextView helloUserTextView;
+    private TextView helloUserTextView, noWorkoutTextView;
 
     @Nullable
     @Override
@@ -55,7 +55,8 @@ public class HomeFragment extends Fragment implements IHomeView {
     }
 
     @Override
-    public void updateUI(List<Workout> workoutList) {
+    public void updateUI(List<Workout> workoutList, int visibility) {
+        this.noWorkoutTextView.setVisibility(visibility);
         this.helloUserTextView.setText(GlobalValues.HELLO.concat(GlobalValues.CURRENT_SESSION));
 
         WorkoutHistoryAdapter workoutHistoryAdapter = new WorkoutHistoryAdapter(workoutList, getContext());
@@ -83,7 +84,8 @@ public class HomeFragment extends Fragment implements IHomeView {
         this.workoutHistoryRecyclerView = view.findViewById(R.id.workout_history_recyclerview);
         this.logoutImageButton = view.findViewById(R.id.logout_imageButton);
         this.progressBar = view.findViewById(R.id.progressBar);
-        this.helloUserTextView = view.findViewById(R.id.hello_user_TextView);
+        this.helloUserTextView = view.findViewById(R.id.hello_user_textView);
+        this.noWorkoutTextView = view.findViewById(R.id.workout_history_no_workout_textView);
         this.progressBar.setVisibility(View.VISIBLE);
         this.homePresenter = new HomePresenter(this);
     }

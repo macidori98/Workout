@@ -1,6 +1,7 @@
 package com.example.workout.presenter;
 
 import android.content.Context;
+import android.view.View;
 
 import com.example.workout.R;
 import com.example.workout.database.FirebaseDb;
@@ -28,8 +29,12 @@ public class HomePresenter implements IHomePresenter {
 
     @Override
     public void sendDataList(List<Workout> workoutList) {
-        Collections.reverse(workoutList);
-        this.homeView.updateUI(workoutList);
+        if (workoutList.isEmpty()) {
+            this.homeView.updateUI(workoutList, View.VISIBLE);
+        } else {
+            Collections.reverse(workoutList);
+            this.homeView.updateUI(workoutList, View.INVISIBLE);
+        }
     }
 
     @Override

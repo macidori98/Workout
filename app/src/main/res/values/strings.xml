@@ -57,6 +57,7 @@
     <string name="invalid_email">Invalid email</string>
     <string name="username_length">Your username has to contain at least 4 characters</string>
     <string name="username_fail">Your username should contain only alphabetical and numeric characters</string>
+    <string name="no_added_workout">No added workout</string>
 
 
 </resources>
